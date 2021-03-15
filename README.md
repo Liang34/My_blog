@@ -4,7 +4,7 @@
 
 1.[`javaScript`深入原型及原型链](https://github.com/Liang34/My_blog/issues/7)
 
-2.`javascript`的闭包
+2[.`javascript`的闭包](https://github.com/Liang34/My_blog/blob/main/javascript%E5%8E%9F%E7%90%86%E7%AF%87/javaScript%E4%B8%AD%E7%9A%84%E9%97%AD%E5%8C%85.md)
 
 3.`javascript`的call、apply、bind
 
@@ -16,9 +16,19 @@
 
 [1、常见的web安全问题](https://github.com/Liang34/My_blog/issues/1)
 
+2、详解CORS
+
 #### `javascript`实践篇：
 
 [1、防抖和节流的实现](https://github.com/Liang34/My_blog/issues/2)
 
 [2、`javascript`的性能优化](https://github.com/Liang34/My_blog/issues/11)
+
+#### 浏览器原理篇：
+
+1、浏览器的渲染流程
+
+2、从Event Loop谈JS的执行机制
+
+
 
