@@ -18,6 +18,8 @@
 
 [2、详解CORS](https://github.com/Liang34/My_blog/blob/main/%E7%BD%91%E7%BB%9C/%E8%AF%A6%E8%A7%A3CORS.md)
 
+3、常见的计网问题
+
 #### `javascript`实践篇：
 
 [1、防抖和节流的实现](https://github.com/Liang34/My_blog/issues/2)
@@ -29,6 +31,10 @@
 [1、浏览器的渲染流程](https://github.com/Liang34/My_blog/blob/main/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%90%86%E7%AF%87/%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B.md)
 
 2、从Event Loop谈JS的执行机制
+
+#### 算法篇：
+
+
 
 
 
