@@ -8,41 +8,16 @@
 </head>
 
 <body>
-  <div id="app"></div>
+  <div id="app">1111111111111111</div>
 
+  <!-- <script src="./js/test.js">
+  </script> -->
   <script>
-const Promise = function(executor){
-  const self = this
-  self.status = 'pending'
-  self.data = undefined
-  self.onResolvedCallBack = []
-  self.onRejectedCallBack = [] 
-  function resolve(val){
-    if(self.status === 'pending') {
-      self.status = 'resolved'
-      self.data = val
-      // 调用下一个回调
-      for(let i = 0; i < self.onResolvedCallBack.length; i++) {
-        self.onResolvedCallBack[i](val)
-      }
-    }
-  }
-  function reject(reason) {
-    if(self.status === 'pending') {
-      self.status = 'reject'
-      self.data = reason
-      for(let i = 0; i < self.onRejectedCallBack.length; i++) {
-        self.onRejectedCallBack[i](reason)
-      }
-    }
-  }
-  
-  try {
-    executor(resolve, reject)
-  } catch(e) {
-    reject(e)
-  }
-}
+    
+    document.body.addEventListener('click',()=>{console.log(1)})
+    document.body.addEventListener('click',(e)=>{e.preventDefault;console.log(2)}, true)
+    // document.getElementById('app').addEventListener('click',()=>{console.log(3)})
+    // document.getElementById('app').addEventListener('click',(e)=>{e.preventDefault;console.log(4)}, true)
   </script>
 </body>
 

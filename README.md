@@ -12,9 +12,9 @@
 
 [5.`javascript`继承的实现](https://github.com/Liang34/My_blog/blob/main/javascript%E5%8E%9F%E7%90%86%E7%AF%87/javascript%E7%BB%A7%E6%89%BF%E7%9A%84%E5%AE%9E%E7%8E%B0.md)
 
-6、`javascript`的深浅拷贝
+[6、`javascript`的深浅拷贝](https://github.com/Liang34/My_blog/blob/main/javascript%E5%8E%9F%E7%90%86%E7%AF%87/javaScript%E7%9A%84%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.md)
 
-7、`javascript`的事件流
+[7、`javascript`的事件流](https://github.com/Liang34/My_blog/blob/main/javascript%E5%AE%9E%E8%B7%B5%E7%AF%87/javaScript%E7%9A%84%E4%BA%8B%E4%BB%B6%E6%B5%81.md)
 
 [8、函数柯里化](https://github.com/Liang34/My_blog/blob/main/javascript%E5%8E%9F%E7%90%86%E7%AF%87/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96.md)
 
@@ -60,7 +60,7 @@
 
 1、实现一个`mvvm`库
 
-2、`DOM Diff`的实现
+[2、`DOM Diff`的实现](https://github.com/Liang34/My_blog/blob/main/vue%E5%AD%A6%E4%B9%A0%E7%AF%87/Dom-Diff.md)
 
 #### node：
 
