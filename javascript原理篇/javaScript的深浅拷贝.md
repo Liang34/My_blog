@@ -194,3 +194,25 @@ console.log('obj', obj)
 console.log('cloneObj', cloneObj)
 ```
 
+方法四：比较简单
+
+````js
+const deepClone = function(target) {
+    const map = new Map()
+    const clone = function (target) {
+        const cloneObj = Array.isArray(target)? []: {}
+        if(map.get(target)){
+            return map.get(target)
+        }
+        map.set(target, cloneObj)
+        for(const i in target) {
+            if(target.gasOwnProperty(i)) {
+                cloneObj[i] = typeof target[i] === 'object'? clone(target[i]): target[i]
+            }
+        }
+        return cloneObj
+    }
+    return clone(target)
+}
+````
+
