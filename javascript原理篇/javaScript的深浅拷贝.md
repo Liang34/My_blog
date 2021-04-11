@@ -216,3 +216,26 @@ const deepClone = function(target) {
 }
 ````
 
+方式五：上面所写的是深度优先遍历，下面来实现一个广度优先遍历的实现。其实广度优先无非就是维护一个队列，每次只要遇到引用类型的话就将这个值`push`进队列里面，深度优先则是递归实现。
+
+```js
+function bfsCopy(origin) {
+    const queue = []
+    const res = Array.isArray(origin)? []: {}
+    queue.push([origin, res])
+    while (queue.length) {
+        console.log(queue)
+        let [origin, res] = queue.shift()
+        for(const key in origin) {
+            if(typeof origin[key]!=='object'){
+              res[key] = origin[key]
+            }else{
+                res[key] = Array.isArray(origin)? []: {}
+                queue.push([origin[key], res[key]])
+            }
+        }
+    }
+    return res
+}
+```
+
