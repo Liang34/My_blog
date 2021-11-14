@@ -123,7 +123,7 @@ console.log(obj2);   //{a:1,b:[1,2,3]}
 
 ```js
 const deepClone = function(obj) {
-  const cloneObj = onj instanceof Array? []: {}
+  const cloneObj = obj instanceof Array? []: {}
   for(let i in obj) {
       if(obj.hasOwnProperty(i)) {
 		cloneObj[i] = typeof obj[i] === 'object'? deepClone[i]: obj[i]
