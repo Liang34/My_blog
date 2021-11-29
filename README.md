@@ -66,3 +66,9 @@
 
 [1、express中间键的原理](https://github.com/Liang34/My_blog/blob/main/node/express%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E5%8E%9F%E7%90%86.md)
 
+
+## 后端篇
+1、koa2的基础使用（√）
+2、上线Node项目PM2（√）
+3、express实现原理
+4、
