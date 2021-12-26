@@ -86,3 +86,48 @@ function Child2 () {
 
 ConcurrentMode:
 
+meno:
+
+创建更新的方式：
+
+ReactDOM.render || hydrate
+
+创建ReactRoot
+
+## 创建FiberRoot和RootFiber
+
+FiberRoot：
+
+整个应用的起点
+
+包含应用挂载的目标节点
+
+记录整个应用更新过程的各种信息
+
+Fiber:
+
+每一个ReactElement对应一个Fiber对象
+
+记录节点的各种状态
+
+串联整个应用形成树结构
+
+Update & UpdateQueue
+
+Update
+
+用于记录组件状态的改变
+
+存放于UpdateQueue(Fiber数据结构当中)中
+
+多个Update可以同时存在：通时调用三个`setState`
+
+
+
+创建更新
+
+
+
+setState
+
+forceUpdate
