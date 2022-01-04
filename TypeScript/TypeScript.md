@@ -104,6 +104,25 @@ let len = (<string>str).length;
 let len = (str as string).length;
 ```
 
+### 联合类型：
+
+联合类型就是将多种数据类型通过|连接起来, 我们可以把枚举类型当做一个联合类型来使用
+
+```js
+let value:(number | string); // (number | string)联合类型
+value = 1;
+value = "123";
+```
+
+交叉类型：
+
+交叉类型是将多个类型合并为一个类型,通过&
+
+```js
+```
+
+
+
 ## 接口
 
 ### 接口类型
@@ -354,7 +373,7 @@ let getArray1 = <T>(value:T, items:number = 5):T[]=>{
 // 注意点: 泛型具体的类型可以不指定
 //         如果没有指定, 那么就会根据我们传递的泛型参数自动推导出来
 let arr = getArray1('abc');
-// let arr = getArray(6); // 报错
+// let arr = getArray(6); // 接下来读取length会报错
 let res = arr.map(item=>item.length);
 console.log(res);
 ```
@@ -591,3 +610,6 @@ chache.add(3);
 chache.add(5);
 console.log(chache.all());
 ```
+
+
+
