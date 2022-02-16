@@ -130,7 +130,7 @@ console.log(person.getFriends());
 
  从最后的输出结果中可以看到，person5 通过 clone 的方法，增加了 `getFriends` 的方法，从而使 person5 这个普通对象在继承过程中又增加了一个方法，这样的继承方式就是寄生式继承。 
 
-六、寄生组合式继承（相对最优）
+### 六、寄生组合式继承（相对最优）
 
 ```js
 function clone (parent, child) {
