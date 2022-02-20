@@ -73,19 +73,19 @@
 //       ]
 //   }
 // ]
-const flatToTree = (arr, res, pid) => {
-  for(let item of arr) {
-      if(item.pid === pid) {
-          const newItem = {...item, children: []}
-          res.push(newItem)
-          flatToTree(arr, newItem.children, item.id)// 递归找自己的孩子
-      }
-  }
-}
-// 验证
-const res = []
-flatToTree(arr, res, 0)
-console.log(res)
+// const flatToTree = (arr, res, pid) => {
+//   for(let item of arr) {
+//       if(item.pid === pid) {
+//           const newItem = {...item, children: []}
+//           res.push(newItem)
+//           flatToTree(arr, newItem.children, item.id)// 递归找自己的孩子
+//       }
+//   }
+// }
+// // 验证
+// const res = []
+// flatToTree(arr, res, 0)
+// console.log(res)
 // 递归
 // const flatToTree = (arr, res, pid) => {
 //   for(let item of arr) {
@@ -96,31 +96,72 @@ console.log(res)
 //     }
 //   }
 // }
-const flatToTree = (arr) => {
-  const result = []
-  const mapItem = {}
-  for(const item of arr) {
-    mapItem[item.id] = {...item, children: []}
-  }
-  for(const item of arr) {
-    const id = item.id
-    const pid = item.pid
-    const treeItem = mapItem[id]
-    if(pid === 0) {
-      result.push(treeItem)
-    } else {
-      if(!mapItem[pid]) {
-        mapItem[pid] = {
-          children: []
-        }
-      }
-      mapItem[pid].children.push(treeItem)
-    }
-  }
-  return result
-}
+// const flatToTree = (arr) => {
+//   const result = []
+//   const mapItem = {}
+//   for(const item of arr) {
+//     mapItem[item.id] = {...item, children: []}
+//   }
+//   for(const item of arr) {
+//     const id = item.id
+//     const pid = item.pid
+//     const treeItem = mapItem[id]
+//     if(pid === 0) {
+//       result.push(treeItem)
+//     } else {
+//       if(!mapItem[pid]) {
+//         mapItem[pid] = {
+//           children: []
+//         }
+//       }
+//       mapItem[pid].children.push(treeItem)
+//     }
+//   }
+//   return result
+// }
 // // const res = []
 // // flatToTree(arr, res, 0)
 // let res = flatToTree(arr)
 // console.log(res)
-debugger;
+// 19351235.890
+// [['a', 'b'], ['n', 'm'], ['0', '1']] => 
+// ["an0", "an1", "am0", "am1", "bn0", "bn1", "bm0", "bm1"]
+
+// 实现一个函数，把一个字符串数组
+// （['zm', 'za', 'b', 'lm', 'ln', 'k']）
+// 格式化成一个对象 
+// { 'b': ['b'], 'k': ['k'], 'l': ['lm', 'ln'], 'z': ['za', 'zm'] }
+// 给定一个升序整形数组[0,1,2,4,5,7,13,15,16]，
+// 找出其中连续出现的数字区间，然后以下列方式进行重组：
+// ["0->2", "4->5", "7", "13", "15->16"]
+// 双指针+flag
+function reBuild(arr) {
+  const res = []
+  let left = 0, right = 0
+  count = 0
+  let str = ''
+  while(right <= arr.length) {
+    if(arr[right] === arr[left] + count || arr[right] === arr[left] + 1) {
+      if(count === 0) {
+        str = ''+arr[left]
+      }
+      count++
+    } else {
+      if(str !== '') {
+        str = str + '->' + arr[right - 1]
+      } else {
+        str = arr[right - 1]
+      }
+      res.push(str)
+      str = ''
+      count = 0
+      left = right
+    }
+    right++
+  }
+  return res
+}
+reBuild([0,1,2,4,5,7,13,15,16])
+
+
+

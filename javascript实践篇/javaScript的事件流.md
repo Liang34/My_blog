@@ -93,3 +93,5 @@ document.getElementById("box3").addEventListener(
 )
 ```
 
+[`e.target`与`e.currentTaget`](https://www.jianshu.com/p/1dd668ccc97a)
+
