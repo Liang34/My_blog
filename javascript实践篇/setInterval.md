@@ -2,8 +2,6 @@
 这就导致 setInterval 在做定时轮训时，出现耗时操作，或者调用的异步操作耗时会导致异步任务不按照期待的时间间隔执行。
 setTimeout 保证调用的时间间隔是一致的，setInterval的设定的间隔时间包括了执行回调的时间。
 
-使用 setTimeout 实现 setInterval
-
 ```js
 let timer = null;
 function interval(func, delay){
@@ -24,3 +22,4 @@ window.clearTimeout(timer)
 interval 函数中两处使用delay参数，这两处是可以存在差异的，也就是第一次执行的间隔和后面代码执行的间隔可以不一样。
 
 ```
+setTimeout/setInterval与requestAnimationFrame的区别

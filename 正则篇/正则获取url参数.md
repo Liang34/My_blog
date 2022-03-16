@@ -1,7 +1,7 @@
 ```js
 // \w匹配字母、数字、下划线。等价于 [A-Za-z0-9_]
 // +	匹配前面的子表达式一次或多次。要匹配 + 字符，请使用 \+。
-function parse_url(_url) { //定义函数
+function parse_url(url) { //定义函数
   var pattern = /(\w+)=(\w+)/ig; //定义正则表达式
   var parames = {}; //定义数组
   url.replace(pattern, function (a, b, c) {

@@ -36,8 +36,20 @@ class HYEventBus {
       handler.eventCallback.apply(handler.thisArg, payload)
     })
   }
-  once() {
-    
+  once(eventName, eventCallback, thisArg) {
+    let handlers = this.eventBus[eventName]
+    if (!handlers) {
+      handlers = []
+      this.eventBus[eventName] = handlers
+    }
+    function callback(){
+      eventCallback()
+      this.off(eventName, eventCallback)
+    }
+    handlers.push({
+      callback,
+      thisArg
+    })
   }
 }
 

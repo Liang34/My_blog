@@ -63,6 +63,8 @@
 
 另外需要注意的是 `mixins` 混入的钩子函数会先于组件内的钩子函数执行，并且在遇到同名选项的时候也会有选择性的进行合并，具体可以阅读 [文档](https://cn.vuejs.org/v2/guide/mixins.html)。
 
+https://www.imooc.com/article/303667
+
 #### computed 和 watch 区别
 
 `computed` 是计算属性，依赖其他属性计算值，并且 `computed` 的值有缓存，只有当计算值变化才会返回内容。

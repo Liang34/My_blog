@@ -4,6 +4,11 @@ const obj = {
     sayName:function() {
         console.log(this.name)
     },
+    sayMyName2 : function() {
+        (() => {
+            console.log(this.name)
+        })()
+    }
 }
 obj.sayMyName = () => {
     console.log(this.name)

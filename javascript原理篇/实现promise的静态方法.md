@@ -2,7 +2,7 @@
 
 ```js
 static all(list){
-    return new MyPromise(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         let arr = [];
         let count = 0;
         for(let i = 0; i < list.length; i++){
