@@ -15,4 +15,4 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.GITEE_DEPLOY_KEY }}
         with:
           source-repo: "git@github.com:Liang34/My_blog.git"
-          destination-repo: "git@gitee.com:liangjianhui_ysn/blog.git"
+          destination-repo: "git@gitee.com:liangjianhui_ysn/My_blog.git"
