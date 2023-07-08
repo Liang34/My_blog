@@ -1,5 +1,5 @@
 name: Mirror to gitee
-
+# push时同步
 on: [ push ]
 
 # Ensures that only one mirror task will run at a time.
