@@ -1,4 +1,4 @@
-## LifeCycles生命周期
+## LiCycles生命周期
 
 ### useLifecycles
 
