@@ -8,7 +8,7 @@
 
 主要是：监听用户行为的事件（默认的 `'mousemove', 'mousedown', 'resize', 'keydown', 'touchstart', 'wheel'` ），指定时间内没有用户操作行为就是非活动状态。
 
-```
+```tsx
 import { useEffect, useState } from 'react';
 // 节流
 import { throttle } from 'throttle-debounce';
@@ -84,3 +84,86 @@ export default useIdle;
 [useLocation docs](https://link.juejin.cn/?target=https%3A%2F%2Fstreamich.github.io%2Freact-use%2F%3Fpath%3D%2Fstory%2Fsensors-uselocation--docs "https://streamich.github.io/react-use/?path=/story/sensors-uselocation--docs") | [useLocation demo](https://link.juejin.cn/?target=https%3A%2F%2Fstreamich.github.io%2Freact-use%2F%3Fpath%3D%2Fstory%2Fsensors-uselocation--demo "https://streamich.github.io/react-use/?path=/story/sensors-uselocation--demo")
 
 > React sensor hook that tracks brower's location.主要获取 `window.location` 等对象信息。
+
+```tsx
+import { useEffect, useState } from 'react';
+// 判断浏览器
+import { isBrowser, off, on } from './misc/util';
+
+const patchHistoryMethod = (method) => {
+  const history = window.history;
+  const original = history[method];
+
+  history[method] = function (state) {
+    // 原先函数
+    const result = original.apply(this, arguments);
+    // 自定义事件 new Event 、 dispatchEvent
+    const event = new Event(method.toLowerCase());
+
+    (event as any).state = state;
+
+    window.dispatchEvent(event);
+
+    return result;
+  };
+};
+
+if (isBrowser) {
+  patchHistoryMethod('pushState');
+  patchHistoryMethod('replaceState');
+}
+// 省略 LocationSensorState 类型
+
+const useLocationServer = (): LocationSensorState => ({
+  trigger: 'load',
+  length: 1,
+});
+
+const buildState = (trigger: string) => {
+  const { state, length } = window.history;
+
+  const { hash, host, hostname, href, origin, pathname, port, protocol, search } = window.location;
+
+  return {
+    trigger,
+    state,
+    length,
+    hash,
+    host,
+    hostname,
+    href,
+    origin,
+    pathname,
+    port,
+    protocol,
+    search,
+  };
+};
+
+const useLocationBrowser = (): LocationSensorState => {
+  const [state, setState] = useState(buildState('load'));
+
+  useEffect(() => {
+    const onPopstate = () => setState(buildState('popstate'));
+    const onPushstate = () => setState(buildState('pushstate'));
+    const onReplacestate = () => setState(buildState('replacestate'));
+
+    on(window, 'popstate', onPopstate);
+    on(window, 'pushstate', onPushstate);
+    on(window, 'replacestate', onReplacestate);
+
+    return () => {
+      off(window, 'popstate', onPopstate);
+      off(window, 'pushstate', onPushstate);
+      off(window, 'replacestate', onReplacestate);
+    };
+  }, []);
+
+  return state;
+};
+
+const hasEventConstructor = typeof Event === 'function';
+
+export default isBrowser && hasEventConstructor ? useLocationBrowser : useLocationServer;
+
+```
