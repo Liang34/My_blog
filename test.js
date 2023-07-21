@@ -27,3 +27,4 @@ const regx = /a[1,2,3]b/g
 const str = "a0b a1b a2b a3b a4b"
 console.log(str.match(regx))// ['a1b', 'a2b', 'a3b']
 debugger
+
