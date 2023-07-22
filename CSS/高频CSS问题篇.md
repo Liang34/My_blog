@@ -2,18 +2,18 @@
 
 ### 1. CSS选择器及其优先级
 
-| 选择器         | 格式          | 优先级权重 |
-| -------------- | ------------- | ---------- |
-| id选择器       | #id           | 100        |
-| 类选择器       | #classname    | 10         |
-| 属性选择器     | a[ref=“eee”]  | 10         |
-| 伪类选择器     | li:last-child | 10         |
-| 标签选择器     | div           | 1          |
-| 伪元素选择器   | li:after      | 1          |
-| 相邻兄弟选择器 | h1+p          | 0          |
-| 子选择器       | ul>li         | 0          |
-| 后代选择器     | li a          | 0          |
-| 通配符选择器   | *             | 0          |
+| 选择器         | 格式           | 优先级权重 |
+| -------------- | -------------- | ---------- |
+| id选择器       | #id            | 100        |
+| 类选择器       | #classname     | 10         |
+| 属性选择器     | a[ref=“eee”] | 10         |
+| 伪类选择器     | li:last-child  | 10         |
+| 标签选择器     | div            | 1          |
+| 伪元素选择器   | li:after       | 1          |
+| 相邻兄弟选择器 | h1+p           | 0          |
+| 子选择器       | ul>li          | 0          |
+| 后代选择器     | li a           | 0          |
+| 通配符选择器   | *              | 0          |
 
 对于选择器的**优先级**：
 
@@ -29,8 +29,6 @@
 - 继承得到的样式的优先级最低
 - 通用选择器（*）、子选择器（>）和相邻同胞选择器（+）并不在这四个等级中，所以它们的权值都为 0
 - 样式表的来源不同时，优先级顺序为：内联样式> 内部样式 > 外部样式 > 浏览器用户自定义样式 > 浏览器默认样式
-
-
 
 ### 2. CSS中可继承与不可继承属性有哪些
 
@@ -86,17 +84,15 @@
 
 ### 3. display的属性值及其作用
 
-| **属性值**   | **作用**                                                   |
-| ------------ | ---------------------------------------------------------- |
-| none         | 元素不显示，并从文档流中移除。                             |
-| block        | 块类型。默认宽度为父元素宽度，可设置宽高，换行显示。       |
-| inline       | 行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。 |
-| inline-block | 默认宽度为内容宽度，可以设置宽高，同行显示。               |
-| list-item    | 像块类型元素一样显示，并添加样式列表标记。                 |
-| table        | 此元素会作为块级表格来显示。                               |
-| inherit      | 规定应该从父元素继承display属性的值。                      |
-
-
+| **属性值** | **作用**                                             |
+| ---------------- | ---------------------------------------------------------- |
+| none             | 元素不显示，并从文档流中移除。                             |
+| block            | 块类型。默认宽度为父元素宽度，可设置宽高，换行显示。       |
+| inline           | 行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。 |
+| inline-block     | 默认宽度为内容宽度，可以设置宽高，同行显示。               |
+| list-item        | 像块类型元素一样显示，并添加样式列表标记。                 |
+| table            | 此元素会作为块级表格来显示。                               |
+| inherit          | 规定应该从父元素继承display属性的值。                      |
 
 ### 4. 单行、多行文本溢出隐藏
 
@@ -120,7 +116,7 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
 复制代码
 ```
 
-注意：由于上面的三个属性都是CSS3的属性，没有浏览器可以兼容，所以要在前面加一个`-webkit-`来兼容一部分浏览器。 
+注意：由于上面的三个属性都是CSS3的属性，没有浏览器可以兼容，所以要在前面加一个 `-webkit-`来兼容一部分浏览器。
 
 ### 5. 隐藏元素的方法有哪些
 
@@ -130,7 +126,7 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
 - **position: absolute**：通过使用绝对定位将元素移除可视区域内，以此来实现元素的隐藏。
 - **z-index 负值**：来使其他元素遮盖住该元素，以此来实现隐藏。
 - **clip/clip-path** ：使用元素裁剪的方法来实现元素的隐藏，这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
-- **transform:scale(0,0)**：将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。 
+- **transform:scale(0,0)**：将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
 
 ### 6. link和@import的区别
 
@@ -139,12 +135,12 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
 - link是XHTML标签，除了加载CSS外，还可以定义RSS等其他事务；@import属于CSS范畴，只能加载CSS。
 - link引用CSS时，在页面载入时同时加载；@import需要页面网页完全载入以后加载。
 - link是XHTML标签，无兼容问题；@import是在CSS2.1提出的，低版本的浏览器不支持。
-- link支持使用Javascript控制DOM去改变样式；而@import不支持。 
+- link支持使用Javascript控制DOM去改变样式；而@import不支持。
 
 ### 7. transition和animation的区别
 
 - **transition是过度属性**，强调过度，它的实现需要触发一个事件（比如鼠标移动上去，焦点，点击等）才执行动画。它类似于flash的补间动画，设置一个开始关键帧，一个结束关键帧。
-- **animation是动画属性**，它的实现不需要触发事件，设定好时间之后可以自己执行，且可以循环一个动画。他也类似于flash的补间动画，但是他可以设置多个关键帧（用@keyframe定义）完成动画。 
+- **animation是动画属性**，它的实现不需要触发事件，设定好时间之后可以自己执行，且可以循环一个动画。他也类似于flash的补间动画，但是他可以设置多个关键帧（用@keyframe定义）完成动画。
 
 ### 8. display:none与visibility:hidden的区别
 
@@ -156,9 +152,9 @@ display:-webkit-box;         // 作为弹性伸缩盒子模型显示。
 （2）**继承**
 
 - `display:none`是非继承属性，他的子孙节点会随着父节点从渲染树消失，通过修改子孙节点的属性也无法显示。
-- `visibility:hidden`是继承属性，子孙节点消失是由于继承了`hidden`，通过设置`visibility:visible`可以让子孙节点显示。
+- `visibility:hidden`是继承属性，子孙节点消失是由于继承了 `hidden`，通过设置 `visibility:visible`可以让子孙节点显示。
 
-（3）修改常规文档流中的元素的`display`通常会造成文档的重排，但是修改`visibility`属性只会造成本元素的重绘 （4）如果使用读屏器，设置为`display:none`的内容不会被读取，设置为`visibility:hidden`的内容会被读取。`visibility:hidden` 
+（3）修改常规文档流中的元素的 `display`通常会造成文档的重排，但是修改 `visibility`属性只会造成本元素的重绘 （4）如果使用读屏器，设置为 `display:none`的内容不会被读取，设置为 `visibility:hidden`的内容会被读取。`visibility:hidden`
 
 ### 9. **伪元素和伪类的区别和作用？**
 
@@ -180,8 +176,6 @@ p:first-child {color: red}
 复制代码
 ```
 
-
-
 ### 10. 对requestAnimationframe的理解
 
 实现动画效果的方法比较多，Javascript 中可以通过定时器 setTimeout 来实现，css3 可以使用 transition 和 animation 来实现，HTML5 中的 canvas 也可以实现。除此之外，HTML5 还提供一个专门用于请求动画的API，那就是 requestAnimationFrame，顾名思义就是请求动画帧。 先看一下MDN对该方法的描述：
@@ -201,11 +195,11 @@ p:first-child {color: red}
 **setTimeout执行动画的缺点**： 它通过设定间隔时间来不断改变图像位置，达到动画效果。但是容易出现卡顿、抖动的现象；原因是：
 
 - settimeout任务被放入异步队列，只有当主线程任务执行完后才会执行队列中的任务，因此实际执行时间总是比设定时间要晚；
-- settimeout的固定时间间隔不一定与屏幕刷新时间相同，会引起丢帧。 
+- settimeout的固定时间间隔不一定与屏幕刷新时间相同，会引起丢帧。
 
 ### 11. 对盒模型的理解
 
-CSS3中的盒模型有以下两种：标准盒模型、IE盒模型 ![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) ![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) 盒模型都是由四个部分组成的，分别是margin、border、padding和content。
+CSS3中的盒模型有以下两种：标准盒模型、IE盒模型 ![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`) ![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`) 盒模型都是由四个部分组成的，分别是margin、border、padding和content。
 
 标准盒模型和IE盒模型的区别在于设置width和height时，所对应的范围不同：
 
@@ -215,7 +209,7 @@ CSS3中的盒模型有以下两种：标准盒模型、IE盒模型 ![img](data:i
 一般来说，我们可以通过修改元素的box-sizing属性来改变元素的盒模型。
 
 - `box-sizeing:content-box`表示标准盒模型（默认值）
-- `box-sizeing:border-box`表示IE盒模型（也就是怪异盒模型） 
+- `box-sizeing:border-box`表示IE盒模型（也就是怪异盒模型）
 
 ### 12. Canvas和SVG的区别
 
@@ -239,11 +233,11 @@ CSS3中的盒模型有以下两种：标准盒模型、IE盒模型 ![img](data:i
 - 能够以 .png 或 .jpg 格式保存结果图像
 - 最适合图像密集型的游戏，其中的许多对象会被频繁重绘
 
-注：矢量图，也称为面向对象的图像或绘图图像，在数学上定义为一系列由线连接的点。矢量文件中的图形元素称为对象。每个对象都是一个自成一体的实体，它具有颜色、形状、轮廓、大小和屏幕位置等属性。 
+注：矢量图，也称为面向对象的图像或绘图图像，在数学上定义为一系列由线连接的点。矢量文件中的图形元素称为对象。每个对象都是一个自成一体的实体，它具有颜色、形状、轮廓、大小和屏幕位置等属性。
 
 ### 13. CSS中有哪些是空元素？
 
-空元素，即没有内容的HTML元素。空元素是在开始标签中关闭的，也就是说空元素没有闭合标签的。 常见的有：` `、``、``、``、``、`` 鲜见的有：``、``、、、``、``、``、``、``、``、`` 
+空元素，即没有内容的HTML元素。空元素是在开始标签中关闭的，也就是说空元素没有闭合标签的。 常见的有：、``、``、``、``、`` 鲜见的有：``、``、、、``、``、``、``、``、``、``
 
 ### 14. CSS3中有哪些新特性
 
@@ -259,19 +253,19 @@ CSS3中的盒模型有以下两种：标准盒模型、IE盒模型 ![img](data:i
 
 ### 15. 替换元素的概念及计算规则
 
-通过修改某个属性值呈现的内容就可以被替换的元素就称为“替换元素”。因此，![img]()、、、或者表单元素和和都是典型的替换元素。 
+通过修改某个属性值呈现的内容就可以被替换的元素就称为“替换元素”。因此，![img]()、、、或者表单元素和和都是典型的替换元素。
 
 替换元素除了内容可替换这一特性以外，还有以下一些特性：
 
 - **内容的外观不受页面上的CSS的影响**：用专业的话讲就是在样式表现在CSS作用域之外。如何更改替换元素本身的外观需要类似appearance属性，或者浏览器自身暴露的一些样式接口。
-- **有自己的尺寸**：在Web中，很多替换元素在没有明确尺寸设定的情况下，其默认的尺寸（不包括边框）是300像素×150像素，如、或者等，也有少部分替换元素为0像素，如图片，而表单元素的替换元素的尺寸则和浏览器有关，没有明显的规律。 
+- **有自己的尺寸**：在Web中，很多替换元素在没有明确尺寸设定的情况下，其默认的尺寸（不包括边框）是300像素×150像素，如、或者等，也有少部分替换元素为0像素，如图片，而表单元素的替换元素的尺寸则和浏览器有关，没有明显的规律。
 - **在很多CSS属性上有自己的一套表现规则**：比较具有代表性的就是vertical-align属性，对于替换元素和非替换元素，vertical-align属性值的解释是不一样的。比方说vertical-align的默认值的baseline，很简单的属性值，基线之意，被定义为字符x的下边缘，而替换元素的基线却被硬生生定义成了元素的下边缘。
 - **所有的替换元素都是内联水平元素**：也就是替换元素和替换元素、替换元素和文字都是可以在一行显示的。但是，替换元素默认的display值却是不一样的，有的是inline，有的是inline-block。
 
 替换元素的尺寸从内而外分为3类：
 
 - **固有尺寸：** 指的是替换内容原本的尺寸。例如，图片、视频作为一个独立文件存在的时候，都是有着自己的宽度和高度的。
-- **HTML尺寸：** 只能通过HTML原生属性改变，这些HTML原生属性包括![img]()的width和height属性、的size属性、的cols和rows属性等。 
+- **HTML尺寸：** 只能通过HTML原生属性改变，这些HTML原生属性包括![img]()的width和height属性、的size属性、的cols和rows属性等。
 - **CSS尺寸：** 特指可以通过CSS的width和height或者max-width/min-width和max-height/min-height设置的尺寸，对应盒尺寸中的content box。
 
 这3层结构的计算规则具体如下：
@@ -286,7 +280,7 @@ CSS3中的盒模型有以下两种：标准盒模型、IE盒模型 ![img](data:i
 
 （5）如果上面的条件都不符合，则最终宽度表现为300像素，高度为150像素。
 
-（6）内联替换元素和块级替换元素使用上面同一套尺寸计算规则。 
+（6）内联替换元素和块级替换元素使用上面同一套尺寸计算规则。
 
 ### 16. 常见的图片格式有哪些，使用场景
 
@@ -308,7 +302,7 @@ CSS3中的盒模型有以下两种：标准盒模型、IE盒模型 ![img](data:i
 - 在有损压缩的情况下，具有相同图片精度的WebP图片，文件大小要比JPEG小25%~34%；
 - WebP图片格式支持图片透明度，一个无损压缩的WebP图片，如果要支持透明度只需要22%的格外文件大小。
 
-目前只有Chrome浏览器和Opera浏览器支持WebP格式，兼容性不太好。 
+目前只有Chrome浏览器和Opera浏览器支持WebP格式，兼容性不太好。
 
 ### 17. 阐述一下 CSSSprites
 
@@ -323,7 +317,7 @@ CSSSprites（精灵图），将一个页面涉及到的所有图片都包含到�
 **缺点：**
 
 - 图片合并麻烦
-- 维护麻烦，修改一个图片可能需要重新布局整个图片，样式 
+- 维护麻烦，修改一个图片可能需要重新布局整个图片，样式
 
 ### 18. 什么是物理像素，逻辑像素和像素密度，为什么在移动端开发时需要用到@3x, @2x这种图片？
 
@@ -331,7 +325,7 @@ CSSSprites（精灵图），将一个页面涉及到的所有图片都包含到�
 
 而如果我们有一把尺子来实际测量这部手机的物理像素，实际为 1242*2688 物理像素；经过计算可知，1242/414=3，也就是说，在单边上，一个逻辑像素=3个物理像素，我们就说这个屏幕的像素密度为 3，也就是我们常说的 3 倍屏。
 
-对于图片来说，为了保证其不失真，1 个图片像素至少要对应一个物理像素，假如原始图片是 500300 像素，那么在 3 倍屏上就要放一个 1500900 像素的图片才能保证 1 个物理像素至少对应一个图片像素，才能不失真。 ![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) 当然，也有一个简单粗暴的适配方案，就是针对所有屏幕，都只提供最高清图片。虽然低密度屏幕用不到那么多图片像素，而且会因为下载多余的像素造成带宽浪费和下载延迟，但从结果上说能保证图片在所有屏幕上都不会失真。
+对于图片来说，为了保证其不失真，1 个图片像素至少要对应一个物理像素，假如原始图片是 500300 像素，那么在 3 倍屏上就要放一个 1500900 像素的图片才能保证 1 个物理像素至少对应一个图片像素，才能不失真。 ![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`) 当然，也有一个简单粗暴的适配方案，就是针对所有屏幕，都只提供最高清图片。虽然低密度屏幕用不到那么多图片像素，而且会因为下载多余的像素造成带宽浪费和下载延迟，但从结果上说能保证图片在所有屏幕上都不会失真。
 
 还可以使用 CSS 媒体查询来判断不同的像素密度，从而选择不同的图片:
 
@@ -343,12 +337,10 @@ my-image { background: (low.png); }
 复制代码
 ```
 
-
-
 ### 19. **margin和padding分别适合什么场景使用？**
 
 - 需要在border外侧添加空白，且空白处不需要背景（色）时，使用 margin
-- 需要在border内测添加空白，且空白处需要背景（色）时，使用 padding 
+- 需要在border内测添加空白，且空白处需要背景（色）时，使用 padding
 
 ### 20. 对**line-height 的理解及其赋值方式**
 
@@ -368,7 +360,7 @@ my-image { background: (low.png); }
 
 ### 21. li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？
 
-浏览器会把inline元素间的空白字符（空格、换行、Tab等）渲染成一个空格。而为了美观。我们通常是一个``放在一行，这导致``换行后产生换行字符，它变成一个空格，占用了一个字符的宽度。
+浏览器会把inline元素间的空白字符（空格、换行、Tab等）渲染成一个空格。而为了美观。我们通常是一个 ``放在一行，这导致``换行后产生换行字符，它变成一个空格，占用了一个字符的宽度。
 
 **解决办法：**
 
@@ -376,9 +368,9 @@ my-image { background: (low.png); }
 
 （2）将所有``写在同一行。不足：代码不美观。
 
-（3）将``内的字符尺寸直接设为0，即font-size:0。不足：``中的其他字符尺寸也被设为0，需要额外重新设定其他字符尺寸，且在Safari浏览器依然会出现空白间隔。
+（3）将 ``内的字符尺寸直接设为0，即font-size:0。不足：``中的其他字符尺寸也被设为0，需要额外重新设定其他字符尺寸，且在Safari浏览器依然会出现空白间隔。
 
-（4）消除``的字符间隔letter-spacing:-8px，不足：这也设置了``内的字符间隔，因此需要将``内的字符间隔设为默认letter-spacing:normal。 
+（4）消除 ``的字符间隔letter-spacing:-8px，不足：这也设置了``内的字符间隔，因此需要将``内的字符间隔设为默认letter-spacing:normal。
 
 ### 22. CSS 优化、提高性能的方法有哪些？
 
@@ -432,7 +424,7 @@ my-image { background: (low.png); }
 
 （1）将具有相同属性的样式抽离出来，整合并通过class在页面中进行使用，提高css的可维护性。
 
-（2）样式与内容分离：将css代码定义到外部css中。 
+（2）样式与内容分离：将css代码定义到外部css中。
 
 ## 二、页面布局
 
@@ -462,7 +454,7 @@ my-image { background: (low.png); }
 **vw/vh** 和百分比很类似，但是还是有区别的：
 
 - 百分比（`%`）：大部分相对于祖先元素，也有相对于自身的情况比如（border-radius、translate等)
-- vw/vm：相对于视窗的尺寸 
+- vw/vm：相对于视窗的尺寸
 
 ### 2. px、em、rem的区别及使用场景
 
@@ -475,7 +467,7 @@ my-image { background: (low.png); }
 **使用场景：**
 
 - 对于只需要适配少部分手机设备，且分辨率对页面影响不大的，使用px即可 。
-- 对于需要适配各种移动设备，使用rem，例如只需要适配iPhone和iPad等分辨率差别比较挺大的设备。 
+- 对于需要适配各种移动设备，使用rem，例如只需要适配iPhone和iPad等分辨率差别比较挺大的设备。
 
 ### 3. 两栏布局的实现
 
@@ -579,8 +571,6 @@ my-image { background: (low.png); }
 }
 复制代码
 ```
-
-
 
 ### 4. 三栏布局的实现
 
@@ -761,8 +751,6 @@ my-image { background: (low.png); }
 复制代码
 ```
 
-
-
 ### 5. 水平垂直居中的实现
 
 水平垂直居中的具体实现：
@@ -829,8 +817,6 @@ my-image { background: (low.png); }
 复制代码
 ```
 
-
-
 ### 6. 如何根据设计稿进行移动端适配？
 
 移动端适配主要有两个维度：
@@ -838,7 +824,7 @@ my-image { background: (low.png); }
 - **适配不同像素密度**。这一部分比较简单，针对不同的像素密度，使用 CSS 媒体查询，选择不同精度的图片，以保证图片不会失真
 - **适配不同屏幕大小**。由于不同的屏幕有着不同的逻辑像素大小，所以如果直接使用 px 作为开发单位，会使得开发的页面在某一款手机上可以准确显示，但是在另一款手机上就会失真。为了适配不同屏幕的大小，应按照比例来还原设计稿的内容。
 
-为了能让页面的尺寸自适应，可以使用 rem，em，vw，vh 等相对单位。 
+为了能让页面的尺寸自适应，可以使用 rem，em，vw，vh 等相对单位。
 
 ### 7. 对Flex布局的理解及其使用场景
 
@@ -876,6 +862,8 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 
 对于容器中的项目，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。还可以使用flex-shrink来指定当排列空间不足时，项目的缩小比例。
 
+8.
+
 ## 三、定位与浮动
 
 ### 1. 为什么需要清除浮动？清除浮动的方式
@@ -896,9 +884,9 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 
 **清除浮动的方式如下：**
 
-- 给父级div定义`height`属性
-- 最后一个浮动元素之后添加一个空的div标签，并添加`clear:both`样式
-- 包含浮动元素的父级标签添加`overflow:hidden`或者`overflow:auto`
+- 给父级div定义 `height`属性
+- 最后一个浮动元素之后添加一个空的div标签，并添加 `clear:both`样式
+- 包含浮动元素的父级标签添加 `overflow:hidden`或者 `overflow:auto`
 - 使用 :after 伪元素。由于IE6-7不支持 :after，使用 zoom:1 触发 hasLayout**
 
 ```css
@@ -913,8 +901,6 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
   }
 复制代码
 ```
-
-
 
 ### 2. 使用 clear 属性清除浮动的原理？
 
@@ -942,7 +928,7 @@ clear:both;
 复制代码
 ```
 
-clear属性只有块级元素才有效的，而::after等伪元素默认都是内联水平，这就是借助伪元素清除浮动影响时需要设置display属性值的原因。 
+clear属性只有块级元素才有效的，而::after等伪元素默认都是内联水平，这就是借助伪元素清除浮动影响时需要设置display属性值的原因。
 
 ### 3. 对BFC的理解，如何创建BFC
 
@@ -973,7 +959,7 @@ clear属性只有块级元素才有效的，而::after等伪元素默认都是�
 **BFC的作用：**
 
 - **解决margin的重叠问题**：由于BFC是一个独立的区域，内部的元素和外部的元素互不影响，将两个元素变为两个BFC，就解决了margin重叠的问题。
-- **解决高度塌陷的问题**：我们在 对子元素设置浮动后，父元素会发生高度塌陷，也就是父元素的高度变为0。解决这个问题，只需要把父元素变成一个BFC就行了。常用的办法是给父元素设置`overflow:hidden`。
+- **解决高度塌陷的问题**：我们在 对子元素设置浮动后，父元素会发生高度塌陷，也就是父元素的高度变为0。解决这个问题，只需要把父元素变成一个BFC就行了。常用的办法是给父元素设置 `overflow:hidden`。
 - **创建自适应两栏布局**：可以用来创建自适应两栏布局：左边的宽度固定，右边的宽度自适应。
 
 ```css
@@ -994,7 +980,7 @@ clear属性只有块级元素才有效的，而::after等伪元素默认都是�
 复制代码
 ```
 
-左侧设置`float:left`，右侧设置ve`rflow: hidden`。这样右边就触发了BFC，BFC的区域不会与浮动元素发生重叠，所以两侧就不会发生重叠，实现了自适应两栏布局。 
+左侧设置 `float:left`，右侧设置ve `rflow: hidden`。这样右边就触发了BFC，BFC的区域不会与浮动元素发生重叠，所以两侧就不会发生重叠，实现了自适应两栏布局。
 
 ### 4. 什么是margin重叠问题？如何解决？
 
@@ -1014,20 +1000,20 @@ clear属性只有块级元素才有效的，而::after等伪元素默认都是�
 
 - 底部元素变为行内盒子：`display: inline-block`
 - 底部元素设置浮动：`float`
-- 底部元素的position的值为`absolute/fixed`
+- 底部元素的position的值为 `absolute/fixed`
 
 （2）父子之间重叠
 
 - 父元素加入：`overflow: hidden`
 - 父元素添加透明边框：`border:1px solid transparent`
 - 子元素变为行内盒子：`display: inline-block`
-- 子元素加入浮动属性或定位 
+- 子元素加入浮动属性或定位
 
 ### 5. 元素的层叠顺序
 
 层叠顺序，英文称作 stacking order，表示元素发生层叠时有着特定的垂直显示顺序。下面是盒模型的层叠规则：
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 对于上图，由上到下分别是：
 
@@ -1045,19 +1031,19 @@ clear属性只有块级元素才有效的，而::after等伪元素默认都是�
 
 （7）正z-index：z-index属性值为正的定位元素。 **
 
-**特别说明:** 当定位元素z-index:auto，生成盒在当前层叠上下文中的层级为 0，不会建立新的层叠上下文，除非是根元素。 
+**特别说明:** 当定位元素z-index:auto，生成盒在当前层叠上下文中的层级为 0，不会建立新的层叠上下文，除非是根元素。
 
 ### 6. position的属性有哪些，区别是什么
 
 position有以下属性值：
 
-| 属性值   | 概述                                                         |
-| -------- | ------------------------------------------------------------ |
-| absolute | 生成绝对定位的元素，相对于static定位以外的一个父元素进行定位。元素的位置通过left、top、right、bottom属性进行规定。 |
-| relative | 生成相对定位的元素，相对于其原来的位置进行定位。元素的位置通过left、top、right、bottom属性进行规定。 |
+| 属性值   | 概述                                                                                                                                                      |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| absolute | 生成绝对定位的元素，相对于static定位以外的一个父元素进行定位。元素的位置通过left、top、right、bottom属性进行规定。                                        |
+| relative | 生成相对定位的元素，相对于其原来的位置进行定位。元素的位置通过left、top、right、bottom属性进行规定。                                                      |
 | fixed    | 生成绝对定位的元素，指定元素相对于屏幕视⼝（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变，⽐如那 种回到顶部的按钮⼀般都是⽤此定位⽅式。 |
-| static   | 默认值，没有定位，元素出现在正常的文档流中，会忽略 top, bottom, left, right 或者 z-index 声明，块级元素从上往下纵向排布，⾏级元素从左向右排列。 |
-| inherit  | 规定从父元素继承position属性的值                             |
+| static   | 默认值，没有定位，元素出现在正常的文档流中，会忽略 top, bottom, left, right 或者 z-index 声明，块级元素从上往下纵向排布，⾏级元素从左向右排列。           |
+| inherit  | 规定从父元素继承position属性的值                                                                                                                          |
 
 前面三者的定位方式如下：
 
@@ -1065,17 +1051,17 @@ position有以下属性值：
 
 元素的定位永远是相对于元素自身位置的，和其他元素没关系，也不会影响其他元素。
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 - **fixed**
 
 元素的定位是相对于 window （或者 iframe）边界的，和其他元素没有关系。但是它具有破坏性，会导致其他元素位置的变化。
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 - **absolute**
 
-元素的定位相对于前两者要复杂许多。如果为 absolute 设置了 top、left，浏览器会根据什么去确定它的纵向和横向的偏移量呢？答案是浏览器会递归查找该元素的所有父元素，如果找到一个设置了`position:relative/absolute/fixed`的元素，就以该元素为基准定位，如果没找到，就以浏览器边界定位。如下两个图所示： ![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) ![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) 
+元素的定位相对于前两者要复杂许多。如果为 absolute 设置了 top、left，浏览器会根据什么去确定它的纵向和横向的偏移量呢？答案是浏览器会递归查找该元素的所有父元素，如果找到一个设置了 `position:relative/absolute/fixed`的元素，就以该元素为基准定位，如果没找到，就以浏览器边界定位。如下两个图所示： ![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`) ![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 ### 7. **display、float、position的关系**
 
@@ -1105,7 +1091,7 @@ div {
 复制代码
 ```
 
-我们将元素的长宽都设置为0，显示出来的效果是这样的： ![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) 所以我们就可以根据border这个特性来绘制三角形：
+我们将元素的长宽都设置为0，显示出来的效果是这样的： ![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`) 所以我们就可以根据border这个特性来绘制三角形：
 
 **（1）三角1**
 
@@ -1120,7 +1106,7 @@ div {
 复制代码
 ```
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 **（2）三角2**
 
@@ -1135,7 +1121,7 @@ div {
 复制代码
 ```
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 **（3）三角3**
 
@@ -1150,7 +1136,7 @@ div {
 复制代码
 ```
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 **（4）三角4**
 
@@ -1165,7 +1151,7 @@ div {
 复制代码
 ```
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>)
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 **（5）三角5**
 
@@ -1179,7 +1165,7 @@ div {
 复制代码
 ```
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) 还有很多，就不一一实现了，总体的原则就是通过上下左右边框来控制三角形的方向，用边框的宽度比来控制三角形的角度。 
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`) 还有很多，就不一一实现了，总体的原则就是通过上下左右边框来控制三角形的方向，用边框的宽度比来控制三角形的角度。
 
 ### 2. 实现一个扇形
 
@@ -1196,7 +1182,7 @@ div{
 复制代码
 ```
 
-![img](data:image/svg+xml;utf8,<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600"></svg>) 
+![img](data:image/svg+xml;utf8,`<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="600">``</svg>`)
 
 ### 3. 实现一个宽高自适应的正方形
 
@@ -1239,8 +1225,6 @@ div{
 复制代码
 ```
 
-
-
 ### 4. 画一条0.5px的线
 
 - **采用transform: scale()的方式**，该方法用来定义元素的2D 缩放转换：
@@ -1257,7 +1241,7 @@ transform: scale(0.5,0.5);
 复制代码
 ```
 
-这样子就能缩放到原来的0.5倍，如果是1px那么就会变成0.5px。viewport只针对于移动端，只在移动端上才能看到效果 
+这样子就能缩放到原来的0.5倍，如果是1px那么就会变成0.5px。viewport只针对于移动端，只在移动端上才能看到效果
 
 ### 5. 设置小于12px的字体
 
@@ -1268,6 +1252,3 @@ transform: scale(0.5,0.5);
 - 使用Webkit的内核的-webkit-text-size-adjust的私有CSS属性来解决，只要加了-webkit-text-size-adjust:none;字体大小就不受限制了。但是chrome更新到27版本之后就不可以用了。所以高版本chrome谷歌浏览器已经不再支持-webkit-text-size-adjust样式，所以要使用时候慎用。
 - 使用css3的transform缩放属性-webkit-transform:scale(0.5); 注意-webkit-transform:scale(0.75);收缩的是整个元素的大小，这时候，如果是内联元素，必须要将内联元素转换成块元素，可以使用display：block/inline-block/...；
 - 使用图片：如果是内容固定不变情况下，使用将小于12px文字内容切出做图片，这样不影响兼容也不影响美观。
-
-
-作者：CUGGZ链接：https://juejin.cn/post/6905539198107942919来源：掘金著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
