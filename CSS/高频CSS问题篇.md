@@ -620,12 +620,12 @@ my-image { background: (low.png); }
 }
 
 .left {
-  flex: 00100px;
+  flex: 0 0 100px;
   background: tomato;
 }
 
 .right {
-  flex: 00200px;
+  flex: 0 0 200px;
   background: gold;
 }
 
@@ -633,7 +633,6 @@ my-image { background: (low.png); }
   flex: auto;
   background: lightgreen;
 }
-复制代码
 ```
 
 - 利用浮动的方式，左右两栏设置固定大小，并设置对应方向的浮动。中间一栏设置左右两个方向的margin值，注意这种方式，中间一栏必须放到最后
@@ -861,8 +860,6 @@ flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素
 一个容器默认有两条轴，一个是水平的主轴，一个是与主轴垂直的交叉轴。我们可以使用flex-direction来指定主轴的方向。 我们可以使用justify-content来指定元素在主轴上的排列方式，使用align-items来指定元素在交叉轴上的排列方式。还 可以使用flex-wrap来规定当一行排列不下时的换行方式。
 
 对于容器中的项目，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。还可以使用flex-shrink来指定当排列空间不足时，项目的缩小比例。
-
-8.
 
 ## 三、定位与浮动
 
