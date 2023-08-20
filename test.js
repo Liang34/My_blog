@@ -23,8 +23,27 @@
 // const regx = /ab{2,5}c/g
 // const str = 'abc abbc abbbc abbbbc abbbbbc abbbbbbc'
 // console.log(str.match(regx))
-const regx = /a[1,2,3]b/g
-const str = "a0b a1b a2b a3b a4b"
-console.log(str.match(regx))// ['a1b', 'a2b', 'a3b']
-debugger
-
+const addRemote = (a, b) => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve(a + b), 1000);
+    });
+  };
+  const splitArgs = (arr) => {
+    const newArr = [];
+    let rest = arr.length % 2 !== 0 ?  Promise.resolve(arr[arr.length - 1]) : undefined;
+    for(let i = 0; i < arr.length; i+=2) {
+        newArr.push(addRemote(arr[i], arr[i+1]));
+    }
+    if(rest) newArr.push(rest)
+    return newArr
+  };
+  const add = (...args) => {
+    if(args.length <= 1) return args[0]
+    const newArr = splitArgs(args);
+    return Promise.all(newArr).then(res => add(...res));
+  };
+  (async () => {
+    add(1, 2).then(res => console.log(res));
+    add(1,2,3,4).then(res => console.log(res))
+  })();
+  

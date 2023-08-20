@@ -76,26 +76,51 @@
 // // 将手机号18379836654转化为183-7983-6654
 
 // console.log('18379836654'.replace(/(?=(\d{4})+$)/g, '-'))
-const torrate = function (fn, time) {
-  let timeout = null
-  return function () {
-    if(timeout) return
-    timeout = setTimeout(() => {
-      timeout = null
-      fn()
-    }, time)
+// const torrate = function (fn, time) {
+//   let timeout = null
+//   return function () {
+//     if(timeout) return
+//     timeout = setTimeout(() => {
+//       timeout = null
+//       fn()
+//     }, time)
+//   }
+// }
+// function throttle2(func, wait) {
+//   let context, args, timeout
+//   return function(){
+//       context = this
+//       args = arguments
+//       if(!timeout) {
+//           timeout = setTimeout(function(){
+//               timeout = null
+//               func.apply(context, args)
+//           }, wait)
+//       }
+//   }
+// }
+interface Person {
+    name: string;
+    age: number;
+    gender: string;
+    address: string;
   }
-}
-function throttle2(func, wait) {
-  let context, args, timeout
-  return function(){
-      context = this
-      args = arguments
-      if(!timeout) {
-          timeout = setTimeout(function(){
-              timeout = null
-              func.apply(context, args)
-          }, wait)
-      }
+  type MyPick<T, K extends keyof T> = {
+    [P in K ]: T[P]
   }
-}
+  type PersonInfo = MyPick<Person, 'name' | 'age'>;
+  
+  const person: Person = {
+    name: 'Tom',
+    age: 18,
+    gender: 'male',
+    address: 'Beijing',
+  };
+  
+  const personInfo: PersonInfo = {
+    name: person.name,
+    age: person.age,
+  };
+  
+  console.log(personInfo); // { name: 'Tom', age: 18 }
+  

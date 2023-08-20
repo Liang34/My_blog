@@ -1,35 +1,28 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-  </head>
-  <body>
-    <div id="app">
-      <button id="run">运行</button>
-      <button id="stop">停止</button>
-    </div>
-    <script>
-      const arr = []
-      for (let i = 0; i < 200000; i++) {
-        arr.push(i)
-      }
-      let newArr = []
-
-      function run() {
-        newArr = newArr.concat(arr)
-      }
-
-      let clearRun
-
-      document.querySelector('#run').onclick = function() {
-        clearRun = setInterval(() => {
-          run()
-        }, 1000)
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <a href="http://www.bai"></a>
+  <a href="https://www.bai1"></a>
+  <a href="http2://www.bai"></a>
+  <script>
+    const allATag = document.querySelectorAll('a')
+    console.log(Array.isArray(allATag))
+    Array.prototype.forEach.call(allATag, element => {
+      console.log(new URL(element).protocol)
+      const a = element.href
+      const str = a.split('://')
+      if(str[0] === 'https') {
+        console.log(a, true)
+      } else {
+        console.log(a, false)
       }
 
-      document.querySelector('#stop').onclick = function() {
-        clearInterval(clearRun)
-      }
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
