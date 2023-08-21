@@ -88,4 +88,5 @@ const run = (arr) => {
     }
     next()
 }
+run(fucArr)
 ```
