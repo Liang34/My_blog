@@ -106,26 +106,9 @@
 //   return res
 // }
 // console.log(flatten(arr))
-function mySetInterVal(fn, a, b) {
-  let timeout = null;
-  let time = a;
-  const startFn = () => {
-    timeout = setTimeout(() => {
-      fn()
-      startFn()
-    }, time);
-    time += b;
-    fn();
-  };
-  startFn()
-  return () => {
-    clearTimeout(timeout);
-  };
-}
-const a = mySetInterVal(() => {
-  console.log('hello world')
-}, 10, 20)
-
-setTimeout(() => {
-  a()
-}, 10000)
+// 02 1
+let a = { n: 1 };
+let b = a;
+a.x = a = { n: 2 };
+console.log(a.x);
+console.log(b.x);
