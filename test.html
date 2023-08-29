@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <a href="http://www.bai"></a>
-  <a href="https://www.bai1"></a>
-  <a href="http2://www.bai"></a>
-  <script>
-    const allATag = document.querySelectorAll('a')
-    console.log(Array.isArray(allATag))
-    Array.prototype.forEach.call(allATag, element => {
-      console.log(new URL(element).protocol)
-      const a = element.href
-      const str = a.split('://')
-      if(str[0] === 'https') {
-        console.log(a, true)
-      } else {
-        console.log(a, false)
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>systemjs-react</title>
+    <script type="systemjs-importmap">
+      {
+        "imports": {
+          "react": "https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js",
+          "react-dom": "https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js",
+          "react-router-dom": "https://cdn.jsdelivr.net/npm/react-router-dom@5.2.0/umd/react-router-dom.min.js"
+        }
       }
-
-    });
-  </script>
-</body>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.8.0/dist/system.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      System.import("./index.js");
+    </script>
+  </body>
 </html>
