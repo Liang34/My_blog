@@ -1,5 +1,5 @@
-### 本资源由 itjc8.com 收集整理
-# 24 加餐：用 Project Reference 优化 tsc 编译性能
+### 24 加餐：用 Project Reference 优化 tsc 编译性能
+
 TypeScript 给 JavaScript 添加了一套类型系统，可以在编译期间检查出类型错误，这增加了代码的健壮性，但也多了一个编译的过程。
 
 ts 编译速度与项目规模有关，如果项目比较大，代码很多，那就需要编译很长一段时间。
@@ -11,6 +11,7 @@ ts 编译速度与项目规模有关，如果项目比较大，代码很多，�
 那 Project Reference 是干什么的呢？
 
 ## Project Reference
+
 想象这样一个场景。项目目录下有两个相对独立的模块 aaa 和 bbb
 
 ![image](images/0i-F9qdSnuDgQ0ld7g-OaNORa2sUyUzq_iB8zJ3xyx0.webp)
@@ -84,6 +85,7 @@ nest 之前是 gulp + tsc 的方式来编译的：
 ![image](images/Xj-iWSJr2VNZbkbZehDMTE7K0uKrLpyt_YGyFOEqC6Y.webp)
 
 ## 总结
+
 TypeScript 3.0 时实现了 Project Reference 来优化性能。
 
 如果项目下有一些相对独立的模块，别的模块的变动不影响它，但是它却要跟着重新编译一次，这时就可以用 Project Reference 来优化了。

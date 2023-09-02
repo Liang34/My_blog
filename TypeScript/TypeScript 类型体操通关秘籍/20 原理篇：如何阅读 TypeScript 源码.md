@@ -1,8 +1,6 @@
-### 本资源由 itjc8.com 收集整理
-# 20 原理篇：如何阅读 TypeScript 源码
+### 20 原理篇：如何阅读 TypeScript 源码
+
 讲类型编程的时候，分布式条件类型是比较麻烦的一个点：
-
-
 
 ![image](images/XTrV91SPGzYrgLcpboSTTJTDQ5f2BzPoGd-V9zPedyw.webp)
 
@@ -20,6 +18,7 @@ Test 这个高级类型，有一个泛型参数 T，当 T 传入的类型为联�
 我们通过这个语法的实现作为抓手，来探究一下 ts 源码应该怎么读。
 
 ## 类型的表示法：类型对象
+
 ts 会把源码进行 parse，生成 AST，然后从 AST 中解析出类型信息。
 
 ts 的类型信息是通过类型对象来存储的，我们来看几个例子。（可视化的查看 AST 可以使用 [astexplorer.net](https://link.juejin.cn/?target=https%3A%2F%2Fastexplorer.net%2F%23%2Fgist%2Fbd6031c7ab25e3d33e8899b3914e9357%2Ff36b635cedba9a6939953631e66868ab322f65d2 "https://astexplorer.net/#/gist/bd6031c7ab25e3d33e8899b3914e9357/f36b635cedba9a6939953631e66868ab322f65d2") 这个网站。）
@@ -50,17 +49,19 @@ Test<number | boolean> 也是一个 `TypeReference`，类型引用。有 typeNa
 
 所以说，类型在 ts 里面都是通过类型对象来表示的。
 
-比较特别的是 `TypeReference` 类型，它只是一个引用，具体的类型还得把类型参数传入所引用的类型，然后求出最终类型。比如这里的 Test<number | boolean> 的类型，最终的类型是把参数 number | boolean 传入定义的那个 ConditionType 来求出的。这就是 ts 的`高级类型`。
+比较特别的是 `TypeReference` 类型，它只是一个引用，具体的类型还得把类型参数传入所引用的类型，然后求出最终类型。比如这里的 Test<number | boolean> 的类型，最终的类型是把参数 number | boolean 传入定义的那个 ConditionType 来求出的。这就是 ts 的 `高级类型`。
 
 理解了类型是怎么表示的，高级类型和泛型参数都是什么，接下来我们就可以正式通过调试 ts 源码来看下 ConditionType 的解析过程了。
 
 ## VSCode 调试 Typescript 源码
+
 首先，我们要把 ts 源码下载下来（加个 depth=1 可以下载单 commit，速度比较快），这里我们看的是 **4.6.0 版本的源码**
 
-```Plain Text
+```Plain
 git clone --depth=1 git@github.com:microsoft/TypeScript.git
 
 ```
+
 然后可以看到 lib 目录下有 tsc.js 和 typescript.js，这两个分别是 ts 的命令行和 api 的入口。
 
 但是，这些是编译以后的 js 代码，源码在 src 下，是用 ts 写的。
@@ -69,11 +70,12 @@ git clone --depth=1 git@github.com:microsoft/TypeScript.git
 
 编译源码：
 
-```Plain Text
+```Plain
 yarn 
 yarn run build:compiler
 
 ```
+
 然后就可以看到多了一个 built 目录，下面有 tsc.js、typescript.js 这两个入口文件，而且也有了 sourcemap：
 
 ![image](images/E4wIFGNHpgunXNnsZcydV3b2d8cDWMmp_MK4iDDAOgE.webp)
@@ -85,13 +87,14 @@ yarn run build:compiler
 我们来试试：
 
 ### vscode 直接调试 ts
+
 vscode 在项目根目录下的 .vscode/launch.json 下保存调试配置：
 
 ![image](images/KJM-ymXtPKkh68f2I_SjjkZrUctyDkzyy1vquwex3Ok.webp)
 
 我们添加一个调试配置：
 
-```Plain Text
+```Plain
 {
     "name": "调试 ts 源码",
     "program": "${workspaceFolder}/built/local/tsc.js",
@@ -107,6 +110,7 @@ vscode 在项目根目录下的 .vscode/launch.json 下保存调试配置：
 }
 
 ```
+
 含义如下：
 
 * name： 调试配置的名字
@@ -123,12 +127,13 @@ vscode 在项目根目录下的 .vscode/launch.json 下保存调试配置：
 
 这里我们设计的 input.ts 是这样的：
 
-```Plain Text
+```Plain
 type Test<T> = T extends boolean ? "Y" : "N";
 
 type res = Test<number | boolean>;
 
 ```
+
 在 ts 的 checker.ts 部分打个断点，然后点击启动调试。
 
 然后，看，这断住的地方，就是 ts 源码啊，不是编译后的 js 文件。这就是 sourcemap 的作用。
@@ -146,17 +151,19 @@ type res = Test<number | boolean>;
 接下来就是我的秘密武器了，用 typescript compiler api。
 
 ## typescript compiler api
+
 ts 除了命令行工具的入口外，也提供了 api 的形式，只是我们很少用。但它对于探究 ts 源码实现有很大的帮助。
 
 我们定义个 test.js 文件，引入 typescript 的包：
 
-```Plain Text
+```Plain
 const ts = require("./built/local/typescript");
 
 ```
+
 然后用 ts 的 api 传入编译配置，并 parse 源码成 ast：
 
-```Plain Text
+```Plain
 const filename = "./input.ts";
 const program = ts.createProgram([filename], {
     allowJs: false
@@ -164,19 +171,21 @@ const program = ts.createProgram([filename], {
 const sourceFile = program.getSourceFile(filename);
 
 ```
+
 这里的 createProgram 第二个参数是编译配置，就是 compilerOptions。
 
 program.getSourceFile 返回的就是 ts 的 AST。
 
 并且还可以拿到 typeChecker：
 
-```Plain Text
+```Plain
 const typeChecker = program.getTypeChecker();
 
 ```
+
 然后呢？typeChecker 是类型检查的 api，我们可以遍历 AST 找到检查的 node，然后调用 checker 的 api 进行检查：
 
-```Plain Text
+```Plain
 function visitNode(node) {
     if (node.kind === ts.SyntaxKind.TypeReference)  {
         const type = typeChecker.getTypeFromTypeNode(node);
@@ -192,13 +201,14 @@ function visitNode(node) {
 visitNode(sourceFile);
 
 ```
+
 我们判断了如果 AST 是 TypeReference 类型，则用 typeChecker.getTypeFromTypeNode 来解析类型。
 
 接下来就可以精准的调试该类型解析的逻辑了，相比命令行的方式来说，更方便理清逻辑。
 
 完整代码如下：
 
-```Plain Text
+```Plain
 const ts = require("./built/local/typescript");
 
 const filename = "./input.ts";
@@ -223,9 +233,10 @@ function visitNode(node) {
 visitNode(sourceFile);
 
 ```
+
 我们改下调试配置，然后开始调试：
 
-```Plain Text
+```Plain
 {
     "name": "调试 ts 源码",
     "program": "${workspaceFolder}/test.js",
@@ -239,6 +250,7 @@ visitNode(sourceFile);
 }
 
 ```
+
 在 typeChecker.getTypeFromTypeNode 这行打个断点，我们去看下具体的类型解析过程。
 
 ![image](images/tL6v6kyTK7yJLC676vZSHYVjiWlJBodT7vZ36hIGcXU.webp)
@@ -277,12 +289,13 @@ TypeReference 的类型就是它引用的类型，它引用了 ConditionType，�
 
 那我们把 input.ts 代码改一下呢：
 
-```Plain Text
+```Plain
 type Test<T> = [T] extends [boolean] ? "Y" : "N";
 
 type res = Test<number | boolean>;
 
 ```
+
 checkType 不直接写类型参数 T 了。
 
 再跑一次：
@@ -314,6 +327,7 @@ checkType 不直接写类型参数 T 了。
 就这样，我们通过源码理清了这个语法的实现原理。
 
 ## 总结
+
 我们以探究 distributive condition type 的实现原理为目的来阅读了 typescript 源码。
 
 首先把 typescript 源码下载下来，执行编译，生成带有 sourcemap 的代码，之后在 vscode 里调试，这样可以直接调试编译前的源码，信息更多。

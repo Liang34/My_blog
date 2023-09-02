@@ -1,32 +1,34 @@
-### 本资源由 itjc8.com 收集整理
-# 16 新语法 infer extends 是如何简化类型编程的
+### 16 新语法 infer extends 是如何简化类型编程的
+
 我们知道，TypeScript 支持 infer 来提取类型的一部分，通过模式匹配的方式。
 
 比如元组类型提取最后一个元素的类型：
 
-```Plain Text
+```typescript
 type Last<Arr extends unknown[]> = 
     Arr extends [...infer rest,infer Ele]
         ? Ele 
         : never;
 
 ```
+
 ![image](images/T4-K2bYngCx01yVaCScXYR8U19Yeg3MrRMdtz2S4OMU.webp)
 
 比如函数提取返回值类型：
 
-```Plain Text
+```typescript
 type GetReturnType<Func extends Function> = 
     Func extends (...args: any[]) => infer ReturnType 
         ? ReturnType 
         : never;
 
 ```
+
 ![image](images/S8Xdx-oIJcPL8X1bwNT_mpRV5xsFzHx0O8ACvYKqCZM.webp)
 
 比如字符串提取一部分，然后替换：
 
-```Plain Text
+```typescript
 type ReplaceStr<
     Str extends string,
     From extends string,
@@ -35,6 +37,7 @@ type ReplaceStr<
         ? `${Prefix}${To}${Suffix}` : Str;
 
 ```
+
 ![image](images/0vvjrFGIUCs9XqaLI20iYhooktmWLr5sEXrXdeLveuw.webp)
 
 **模式匹配就是通过一个类型匹配一个模式类型，需要提取的部分通过 infer 声明一个局部变量，这样就能从局部变量里拿到提取的类型。**
@@ -79,13 +82,14 @@ TS 也知道有这个问题，所以在 4.7 就引入了新语法：infer extend
 
 比如这样一个类型：
 
-```Plain Text
+```Plain
 type NumInfer<Str> = 
     Str extends `${infer Num extends number}`
         ? Num
         : never;
 
 ```
+
 在 4.7 的时候推导结果是这样：
 
 ![image](images/F6pffhbFYSC15ZzoM_kRuNTNpzei_gdZhK4egm4YiZY.webp)
@@ -100,7 +104,7 @@ type NumInfer<Str> =
 
 比如提取枚举的值的类型：
 
-```Plain Text
+```Plain
 enum Code {
     a = 111,
     b = 222,
@@ -108,19 +112,21 @@ enum Code {
 }
 
 ```
+
 我们都是这样写：
 
 ![image](images/jUasV5MxTnvguZZB_iUJWzFUQMT5rYvH0N2FfigCkUw.webp)
 
 但是有的值明明是数字，却被作为了字符串，所以要再处理一下，转换成数字类型，这时候就可以用 infer extends 了：
 
-```Plain Text
+```Plain
 type StrToNum<Str> =
   Str extends `${infer Num extends number}`
     ? Num
     : Str
 
 ```
+
 做完 string 到 number 的转换，就拿到了我们想要的结果：
 
 ![image](images/BqbYZNVDq57c_i98D-IeyUcvCz9-bheY5LKabNt_Q9Q.webp)
@@ -136,6 +142,7 @@ type StrToNum<Str> =
 [试一下](https://link.juejin.cn/?target=https%3A%2F%2Fwww.typescriptlang.org%2Fplay%3Fts%3D4.8.0-beta%23code%2FKYOwrgtgBAwg9gE2FA3gKCpqBDKBeKARmIBoMsAjfKAJjrKygGNqBybCp1tAXzTQAuATwAOyAMoCATgBU4AOUgAeSVIB8%2BcqqjAAHgNAIAzlAAGAEhQBLEADNgUqIuh6DIY1HAQKDnqfKYAPxOkAFQAFxQqvzCYlBSwCYEqnLOShYo8Eh%2BagDcMaIS0nIAQnBwADbA2CAq0hp4WtI6%2BoYmGTb2jmWVLW4eFOVVNX5hwT0VYZHRgoXxiTTUKXAT1bWs0mDArHkFccuKFRV16pqY2q5tZpadDiFHfVfgR6OMwYeTjNPSe8gJRgBmJbFBRgI5KVjPCo7XJAA "https://www.typescriptlang.org/play?ts=4.8.0-beta#code/KYOwrgtgBAwg9gE2FA3gKCpqBDKBeKARmIBoMsAjfKAJjrKygGNqBybCp1tAXzTQAuATwAOyAMoCATgBU4AOUgAeSVIB8+cqqjAAHgNAIAzlAAGAEhQBLEADNgUqIuh6DIY1HAQKDnqfKYAPxOkAFQAFxQqvzCYlBSwCYEqnLOShYo8Eh+agDcMaIS0nIAQnBwADbA2CAq0hp4WtI6+oYmGTb2jmWVLW4eFOVVNX5hwT0VYZHRgoXxiTTUKXAT1bWs0mDArHkFccuKFRV16pqY2q5tZpadDiFHfVfgR6OMwYeTjNPSe8gJRgBmJbFBRgI5KVjPCo7XJAA")
 
 ## 总结
+
 Typescript 支持 infer 类型，可以通过模式匹配的方式，提取一部分类型返回。
 
 但是 infer 提取出的类型是 unknown，后面用的时候需要类似和 string 取交叉类型，或者 xxx extends string 这样的方式来转换成别的类型来用。这样比较麻烦。

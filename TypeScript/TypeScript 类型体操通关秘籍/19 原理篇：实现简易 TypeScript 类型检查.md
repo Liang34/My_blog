@@ -1,5 +1,5 @@
-### 本资源由 itjc8.com 收集整理
-# 19 原理篇：实现简易 TypeScript 类型检查
+### 19 原理篇：实现简易 TypeScript 类型检查
+
 不自己实现 ts 类型检查，怎么能叫“通关”呢？
 
 这一节我们基于 babel 来实现类型检查，也就是 Checker 的功能。 当然，只是简易版本，帮助大家理清类型检查的实现原理。
@@ -9,6 +9,7 @@
 代码在 [github](https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2FQuarkGluonPlasma%2Fbabel-plugin-exercize "https://github.com/QuarkGluonPlasma/babel-plugin-exercize")，可以下下来跑一下类型检查部分。
 
 ## 如何检查类型
+
 我们知道，babel 能够解析 typescript 语法，那么能不能基于 babel 实现类型检查呢？
 
 我们经常用 tsc 来做类型检查，有没有想过，类型检查具体做了什么？
@@ -24,19 +25,23 @@ typescript 还支持高级类型，也就是类型可以做各种运算，这种
 我们来写代码实现一下：
 
 ## 代码实现
+
 ### 实现简单类型的类型检查
+
 #### 赋值语句的类型检查
+
 比如这样一段代码，声明的值是一个 string，但是赋值为了 number，明显是有类型错误的，我们怎么检查出它的错误的。
 
-```Plain Text
+```Plain
 let name: string;
 
 name = 111;
 
 ```
+
 首先我们使用 babel 把这段代码 parse 成 AST：
 
-```Plain Text
+```Plain
 const  parser = require('@babel/parser');
 
 const sourceCode = `
@@ -50,6 +55,7 @@ const ast = parser.parse(sourceCode, {
 });
 
 ```
+
 使用 babel parser 来 parse，启用 typescript 语法插件。
 
 可以使用 [astexplerer.net](https://link.juejin.cn/?target=https%3A%2F%2Fastexplorer.net%2F%23%2Fgist%2Ffbe3aa6468083e790076830c48a4725c%2F9573eca6e0bc15dfdaf341eda5a2afc2906875e6 "https://astexplorer.net/#/gist/fbe3aa6468083e790076830c48a4725c/9573eca6e0bc15dfdaf341eda5a2afc2906875e6") 来查看它的 AST：
@@ -57,26 +63,28 @@ const ast = parser.parse(sourceCode, {
 ![image](images/mKSIxTj6adc_98rt_gh5JuRQX0nC3rq1_Ng_6lsn2oo.webp)
 
 ##### 实现类型检查
+
 我们需要检查的是这个赋值语句 AssignmentExpression，左右两边的类型是否匹配。
 
 右边是一个数字字面量 NumericLiteral，很容易拿到类型，而左边则是一个引用，要从作用域中拿到它声明的类型，之后才能做类型对比。
 
 babel 提供了 scope 的 api 可以用于查找作用域中的类型声明（binding），并且还可以通过 path.getTypeAnnotation 获得声明时的类型。
 
-```Plain Text
+```Plain
  AssignmentExpression(path, state) {
     const leftBinding = path.scope.getBinding(path.get('left'));
     const leftType = leftBinding.path.get('id').getTypeAnnotation();// 左边的值声明的类型
 }
 
 ```
+
 这个返回的类型是 TSTypeAnnotation 的一个对象，我们需要做下处理，转为类型字符串，也就是 string、number 这种。
 
 ![image](images/qjNG-DUyF5m-vmlTW4Y3RY-v0wVnD9R6KwNJFQoIbUs.webp)
 
 封装一个方法，传入类型对象，返回 number、string 等类型字符串
 
-```Plain Text
+```Plain
 function resolveType(targetType) {
     const tsTypeAnnotationMap = {
         'TSStringKeyword': 'string'
@@ -90,9 +98,10 @@ function resolveType(targetType) {
 }
 
 ```
+
 这样我们拿到了左右两边的类型，接下来就简单了，对比下就知道了类型是否匹配：
 
-```Plain Text
+```Plain
 AssignmentExpression(path, state) {
     const rightType = resolveType(path.get('right').getTypeAnnotation());
     const leftBinding = path.scope.getBinding(path.get('left'));
@@ -103,33 +112,38 @@ AssignmentExpression(path, state) {
 }
 
 ```
+
 ##### 错误打印优化
+
 报错信息怎么打印呢？可以使用 @babel/code-frame，它支持打印某一片段的高亮代码。
 
-```Plain Text
+```Plain
 path.get('right').buildCodeFrameError(`${rightType} can not assign to ${leftType}`, Error)
 
 ```
+
 效果如下：
 
 ![image](images/PLoTfwV-XTp9mOcV-mAOyoX6uC97pCR_3Q_IJK3NzEE.webp)
 
 这个错误堆栈也太丑了，我们把它去掉，设置 Error.stackTraceLimit 为 0 就行了
 
-```Plain Text
+```Plain
 Error.stackTraceLimit = 0;
 path.get('right').buildCodeFrameError(`${rightType} can not assign to ${leftType}`, Error));
 
 ```
+
 但是这里改了之后还要改回来，也就是:
 
-```Plain Text
+```Plain
 const tmp = Error.stackTraceLimit;
 Error.stackTraceLimit = 0;
 console.log(path.get('right').buildCodeFrameError(`${rightType} can not assign to ${leftType}`, Error));
 Error.stackTraceLimit = tmp;
 
 ```
+
 再来跑一下：
 
 ![image](images/_BumVZ582uxXRZtEWiOuUQKTQ6ycJSgteWb-o842J6E.webp)
@@ -137,6 +151,7 @@ Error.stackTraceLimit = tmp;
 好看多了！
 
 ##### 错误收集
+
 还有一个问题，现在是遇到类型错误就报错，但我们希望是在遇到类型错误时收集起来，最后统一报错。
 
 怎么实现呢？错误放在哪？
@@ -145,7 +160,7 @@ babel 插件中可以拿到 file 对象，有 set 和 get 方法用来存取一�
 
 所以我们可以这样做：
 
-```Plain Text
+```Plain
 pre(file) {
     file.set('errors', []);
 },
@@ -169,6 +184,7 @@ post(file) {
 }
 
 ```
+
 这样就可以做到过程中收集错误，最后统一打印：
 
 ![image](images/t4G1IytRV8KYj51Nlk1YDVcdqGrpA-_TaEP4M53oSoY.webp)
@@ -176,22 +192,24 @@ post(file) {
 这样，我们就实现了简单的赋值语句的类型检查！
 
 #### 函数调用的类型检查
+
 赋值语句的检查比较简单，我们来进阶一下，实现函数调用参数的类型检查
 
-```Plain Text
+```Plain
 function add(a: number, b: number): number{
     return a + b;
 }
 add(1, '2');
 
 ```
+
 这里我们要检查的就是函数调用语句 CallExpression 的参数和它声明的是否一致。
 
 ![image](images/3nwk89bgwhv5j3C8jzIGlDhVGxJFp1zCLJ8sTmgvlpc.webp)
 
 CallExpression 有 callee 和 arguments 两部分，我们需要根据 callee 从作用域中查找函数声明，然后再把 arguments 的类型和函数声明语句的 params 的类型进行逐一对比，这样就实现了函数调用参数的类型检查。
 
-```Plain Text
+```Plain
 pre(file) {
     file.set('errors', []);
 },
@@ -222,6 +240,7 @@ post(file) {
 }
 
 ```
+
 运行一下，效果如下：
 
 ![image](images/UOlTQNjTHGhYtI687LxNB7-L9pXzaJKOiMvEAC8ZCNs.webp)
@@ -229,22 +248,24 @@ post(file) {
 我们实现了函数调用参数的类型检查！实际上思路还是挺清晰的，检查别的 AST 也是类似的思路。
 
 ### 实现带泛型的类型检查
+
 泛型是什么，其实就是类型参数，使得类型可以根据传入的参数动态确定，类型定义更加灵活。
 
 比如这样一段代码：
 
-```Plain Text
+```Plain
 function add<T>(a: T, b: T) {
     return a + b;
 }
 add<number>(1, '2');
 
 ```
+
 怎么做类型检查呢？
 
 这还是函数调用语句的类型检查，我们上面实现过了，区别不过是多了个参数，那么我们取出类型参数来传过去就行了。
 
-```Plain Text
+```Plain
 CallExpression(path, state) {
     // 先拿到类型参数的值，也就是真实类型
     const realTypes = path.node.typeParameters.params.map(item => {
@@ -275,6 +296,7 @@ CallExpression(path, state) {
 }
 
 ```
+
 多了一步确定泛型参数的具体类型的过程。
 
 执行看下效果：
@@ -284,9 +306,10 @@ CallExpression(path, state) {
 我们成功支持了带泛型的函数调用语句的类型检查！
 
 ### 实现带高级类型的函数调用语句的类型检查
+
 typescript 支持高级类型，也就是支持对类型参数做各种运算然后返回最终类型
 
-```Plain Text
+```Plain
 type Res<Param> = Param extends 1 ? number : string;
 function add<T>(a: T, b: T) {
     return a + b;
@@ -294,6 +317,7 @@ function add<T>(a: T, b: T) {
 add<Res<1>>(1, '2');
 
 ```
+
 比如这段代码中，Res 就是一个高级类型，对传入的类型参数 Param 进行处理之后返回新类型。
 
 这个函数调用语句的类型检查，比泛型参数传具体的类型又复杂了一些，需要先求出具体的类型，然后再传入参数，之后再去对比参数的类型。
@@ -310,7 +334,7 @@ add<Res<1>>(1, '2');
 
 具体类型传参的逻辑和上面一样，就不赘述了，我们看一下根据类型参数求值的逻辑：
 
-```Plain Text
+```Plain
 function typeEval(node, params) {
     let checkType;
     // 如果参数是泛型，则从传入的参数取值
@@ -328,6 +352,7 @@ function typeEval(node, params) {
 }
 
 ```
+
 这样，我们就可以求出这个 Res 的高级类型当传入 Params 为 1 时求出的最终类型。
 
 有了最终类型之后，就和直接传入具体类型的函数调用的类型检查一样了。（上面我们实现过）
@@ -338,7 +363,7 @@ function typeEval(node, params) {
 
 完整代码如下（有些长，可以先跳过往后看）：
 
-```Plain Text
+```Plain
 const { declare } = require('@babel/helper-plugin-utils');
 
 // 解析高级类型的值，传入泛型参数的值
@@ -456,9 +481,11 @@ module.exports = noFuncAssignLint;
 
 
 ```
+
 就这样，我们实现了 typescript 高级类型！
 
 ## 总结
+
 类型代表了变量的内容和能对它进行的操作，静态类型让检查可以在编译期间做，随着前端项目越来越重，越来越需要 typescript 这类静态类型语言。
 
 类型检查就是做 AST 的对比，判断声明的和实际的是否一致：
