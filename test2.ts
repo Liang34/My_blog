@@ -99,28 +99,3 @@
 //       }
 //   }
 // }
-interface Person {
-    name: string;
-    age: number;
-    gender: string;
-    address: string;
-  }
-  type MyPick<T, K extends keyof T> = {
-    [P in K ]: T[P]
-  }
-  type PersonInfo = MyPick<Person, 'name' | 'age'>;
-  
-  const person: Person = {
-    name: 'Tom',
-    age: 18,
-    gender: 'male',
-    address: 'Beijing',
-  };
-  
-  const personInfo: PersonInfo = {
-    name: person.name,
-    age: person.age,
-  };
-  
-  console.log(personInfo); // { name: 'Tom', age: 18 }
-  

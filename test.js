@@ -46,4 +46,3 @@ const addRemote = (a, b) => {
     add(1, 2).then(res => console.log(res));
     add(1,2,3,4).then(res => console.log(res))
   })();
-  
