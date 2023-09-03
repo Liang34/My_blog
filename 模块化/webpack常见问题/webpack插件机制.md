@@ -2,16 +2,16 @@
 
 ### 前言
 
-`Webpack` 工程相当庞大，但 `Webpack` 本质上是一种事件流机制。通过事件流将各种插件串联起来，最终完成 `Webpack` 的全流程，而实现事件流机制的核心是 `Tapable `模块。`Webpack `负责编译的` Compiler `和创建 `Bundle` 的 `Compilation `都是继承自 `Tapable`。
+`Webpack` 工程相当庞大，但 `Webpack` 本质上是一种事件流机制。通过事件流将各种插件串联起来，最终完成 `Webpack` 的全流程，而实现事件流机制的核心是 `Tapable `模块。`Webpack `负责编译的 `Compiler`和创建 `Bundle` 的 `Compilation `都是继承自 `Tapable`。
 
 ### Tapable
 
-`tapable `是一个类似于`nodejs` 的`EventEmitter `的库, 主要是控制钩子函数的发布与订阅。当然，`tapable`提供的hook机制比较全面，分为同步和异步两个大类(异步中又区分异步并行和异步串行)，而根据事件执行的终止条件的不同，由衍生出 Bail/Waterfall/Loop 类型。
+`tapable `是一个类似于 `nodejs` 的 `EventEmitter `的库, 主要是控制钩子函数的发布与订阅。当然，`tapable`提供的hook机制比较全面，分为同步和异步两个大类(异步中又区分异步并行和异步串行)，而根据事件执行的终止条件的不同，由衍生出 Bail/Waterfall/Loop 类型。
 
 `tapable`的执行流程可以分为以下四步：
 
-- 使用`tap*`对事件进行注册绑定。根据类型不同，提供三种绑定的方式：`tap、tapPromise、tapAsync`，其中`tapPromise、tapAsync`为异步类`Hook`的绑定方法。
-- 使用`call*`对事件进行触发，根据类型不同，也提供了三种触发方式：`call、promise、callAsync`;
+- 使用 `tap*`对事件进行注册绑定。根据类型不同，提供三种绑定的方式：`tap、tapPromise、tapAsync`，其中 `tapPromise、tapAsync`为异步类 `Hook`的绑定方法。
+- 使用 `call*`对事件进行触发，根据类型不同，也提供了三种触发方式：`call、promise、callAsync`;
 - 生成对应类型的代码片段（要执行的代码实际是拼字符串拼出来的）
 - 生成第三步生成的代码片段；
 
@@ -45,7 +45,7 @@ class Compiler extends Tapable {
 }
 ```
 
- 可以看到， Compier继承了Tapable, 并且在实例上绑定了一个hook对象， 使得Compier的实例compier可以像这样使用 
+ 可以看到， Compier继承了Tapable, 并且在实例上绑定了一个hook对象， 使得Compier的实例compier可以像这样使用
 
 ````js
 compiler.hooks.compile.tapAsync(
@@ -97,7 +97,7 @@ class Compilation extends Tapable {
 编写一个插件：
 
  了解到tapable\compiler\compilation之后， 再来看插件的实现就不再一头雾水了
-以下代码源自[官方文档](https://webpack.docschina.org/contribute/writing-a-plugin/) 
+以下代码源自[官方文档](https://webpack.docschina.org/contribute/writing-a-plugin/)
 
 ```js
 class MyExampleWebpackPlugin {
@@ -120,11 +120,11 @@ class MyExampleWebpackPlugin {
 }
 ```
 
- 可以看到其实就是在apply中传入一个Compiler实例， 然后基于该实例注册事件， compilation同理， 最后webpack会在各流程执行call方法。 
+ 可以看到其实就是在apply中传入一个Compiler实例， 然后基于该实例注册事件， compilation同理， 最后webpack会在各流程执行call方法。
 
 ## compiler和compilation一些比较重要的事件钩子
 
-### [compier](https://webpack.docschina.org/api/compiler-hooks/#failed)
+### [compier](https://webpack.docschina.org/api/compiler-hooks/)
 
 | 事件钩子      | 触发时机                                            | 参数        | 类型              |
 | ------------- | --------------------------------------------------- | ----------- | ----------------- |
@@ -141,16 +141,16 @@ class MyExampleWebpackPlugin {
 
 ### [compilation](https://webpack.docschina.org/api/compilation-hooks/)
 
-| 事件钩子              | 触发时机                                                     | 参数                 | 类型            |
-| --------------------- | ------------------------------------------------------------ | -------------------- | --------------- |
+| 事件钩子              | 触发时机                                                                 | 参数                 | 类型            |
+| --------------------- | ------------------------------------------------------------------------ | -------------------- | --------------- |
 | normal-module-loader  | 普通模块 loader，真正（一个接一个地）加载模块图(graph)中所有模块的函数。 | loaderContext module | SyncHook        |
-| seal                  | 编译(compilation)停止接收新模块时触发。                      | -                    | SyncHook        |
-| optimize              | 优化阶段开始时触发。                                         | -                    | SyncHook        |
-| optimize-modules      | 模块的优化                                                   | modules              | SyncBailHook    |
-| optimize-chunks       | 优化 chunk                                                   | chunks               | SyncBailHook    |
-| additional-assets     | 为编译(compilation)创建附加资源(asset)。                     | -                    | AsyncSeriesHook |
-| optimize-chunk-assets | 优化所有 chunk 资源(asset)。                                 | chunks               | AsyncSeriesHook |
-| optimize-assets       | 优化存储在 compilation.assets 中的所有资源(asset)            | assets               | AsyncSeriesHook |
+| seal                  | 编译(compilation)停止接收新模块时触发。                                  | -                    | SyncHook        |
+| optimize              | 优化阶段开始时触发。                                                     | -                    | SyncHook        |
+| optimize-modules      | 模块的优化                                                               | modules              | SyncBailHook    |
+| optimize-chunks       | 优化 chunk                                                               | chunks               | SyncBailHook    |
+| additional-assets     | 为编译(compilation)创建附加资源(asset)。                                 | -                    | AsyncSeriesHook |
+| optimize-chunk-assets | 优化所有 chunk 资源(asset)。                                             | chunks               | AsyncSeriesHook |
+| optimize-assets       | 优化存储在 compilation.assets 中的所有资源(asset)                        | assets               | AsyncSeriesHook |
 
 ### 总结
 
