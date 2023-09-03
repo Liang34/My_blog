@@ -81,7 +81,7 @@ Webpack首先会把配置参数和命令行的参数及默认参数合并，并�
 
 webpack的打包总体来说其实是分为三个阶段：初始化阶段、编译阶段、输出文件阶段
 
-初始化阶段：
+##### 初始化阶段：
 
 * 初始化参数: 从配置文件和 Shell 语句中读取与合并参数，得出最终的参数。这个过程中还会执行配置文件中的插件实例化语句` new Plugin()`。
 
@@ -90,7 +90,7 @@ webpack的打包总体来说其实是分为三个阶段：初始化阶段、编�
 * 加载插件: 依次调用插件的apply方法，让插件可以监听后续的所有事件节点。同时给插件传入compiler实例的引用，以方便插件通过compiler调用Webpack提供的API。
 * 处理入口: 读取配置的Entrys，为每个Entry实例化一个对应的EntryPlugin，为后面该Entry的递归解析工作做准备。
 
-编译阶段：
+##### 编译阶段：
 
 * run阶段：启动一次新的编译。`this.hooks.run.callAsync`。
 * compile: 该事件是为了告诉插件一次新的编译将要启动，同时会给插件带上compiler对象。
@@ -108,7 +108,7 @@ webpack的打包总体来说其实是分为三个阶段：初始化阶段、编�
 * normal-module-loader: 在用Loader对一个模块转换完后，使用acorn解析转换后的内容，输出对应的抽象语法树（AST），以方便Webpack后面对代码的分析。
 * program: 从配置的入口模块开始，分析其AST，当遇到require等导入其它模块语句时，便将其加入到依赖的模块列表，同时对新找出的依赖模块递归分析，最终搞清所有模块的依赖关系。
 
-文件输出阶段：
+##### 文件输出阶段：
 
 * seal: 封装` compilation.seal seal(callback)`。
 * addChunk: 生成资源 addChunk(name)。
