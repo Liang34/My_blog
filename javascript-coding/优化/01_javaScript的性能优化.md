@@ -4,8 +4,8 @@
 
 - 首页加载慢的优化
 - 优化图片的做法
-- 实现`Webpack`打包优化
-- 实现`CDN`加速
+- 实现 `Webpack`打包优化
+- 实现 `CDN`加速
 
 ### 运行阶段->渲染优化
 
@@ -13,7 +13,7 @@
 
 ### 加载优化：
 
-1、对于图片我们可以通过**懒加载**的方式来减少**首屏图片**的加载量
+##### 1、图片懒加载
 
 原理：看看[懒加载的库](https://www.andreaverlicchi.eu/lazyload/demos/dynamic_content.html)
 
@@ -25,17 +25,18 @@
 
 懒加载原理就是监听滚动条事件，如果（滚动条距离浏览器顶部的高度 === 图片距离顶部的高度），那么就将 `data-src` 的值赋值到 `src` 上。
 
-2、对于纯色系**小图标**可以使用 [iconfont](https://www.iconfont.cn/help/detail?&helptype=code) 来解决，设置 `font-family` 的 CSS 属性；对于一些彩色的**小图片**可以使用雪碧图，把所有小图片拼接到一张大图片上，并使用 `background-position` 的 CSS 属性来修改图片坐标
+##### 2、雪碧图
 
-3、通过减少资源的请求量。
+对于纯色系**小图标**可以使用 [iconfont](https://www.iconfont.cn/help/detail?&helptype=code) 来解决，设置 `font-family` 的 CSS 属性；对于一些彩色的**小图片**可以使用雪碧图，把所有小图片拼接到一张大图片上，并使用 `background-position` 的 CSS 属性来修改图片坐标
+
+##### 3、通过减少资源的请求量。
 
 - 通过 [nginx 服务器](https://tengine.taobao.org/download/nginx@taobao.pdf) （可用来做 CDN，**用来处理静态资源**）来做**资源文件合并** [combo](https://github.com/alibaba/nginx-http-concat) -- **将多个JavaScript、CSS文件合并成一个**
-- 通过打包工具`（Webpack）`来做资源文件的**物理打包**（相对没有第一种灵活）
+- 通过打包工具 `（Webpack）`来做资源文件的**物理打包**（相对没有第一种灵活）
 
-4、除了从资源层面来解决问题，还可以从我们自己写的代码本身来考虑
+##### 4、按需引入第三方库以及路由懒加载
 
 - 对于引入的一些比较大型的第三方库，比如 组件库（[antd](https://ant.design/docs/react/getting-started-cn#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD)，[element-ui](https://element.eleme.cn/#/zh-CN/component/quickstart#an-xu-yin-ru)），函数库（[lodash](https://github.com/lodash/babel-plugin-lodash)）等，**务必设定按需加载**。Tips: 一般都是用 Babel 插件来实现的
-
 - 可以通过**前端**路由懒加载的方式（只限于 [SPA 应用](https://preview.pro.ant.design/dashboard/analysis)），使用 [React lazy](https://zh-hans.reactjs.org/docs/code-splitting.html#reactlazy) 进行动态路由的加载（React 16.6 以上版本才可以使用 React lazy）
 
   - 路由懒加载原理：
@@ -43,65 +44,61 @@
     - ```js
       // 1. 引入 react lazy, 并且使用 import 动态导入组件
       import { lazy } from 'react'; // 静态导入
-      
-      
+
+
       lazy(() => import('./Home')); // 动态导入
-      
+
       // 2. 引入 Suspense 组件，并使用 Suspense 将根组件包裹起来，并使用 fallback props 传入 loading 组件
       import { Suspense } from 'react';
-      
+
       // 注意：使用 lazy 加载的组件，必须是 Suspense 子组件，或者孙组件
       <Suspense fallback={<div>Loading...</div>}>
       	<OtherComponent />
       </Suspense>
       ```
-
     - 动态导入([dynamic import](https://zh-hans.reactjs.org/docs/code-splitting.html#import))：当代码运行 import 的时候，再导入组件
-
     - ```js
       import("./math").then(math => {
         console.log(math.add(16, 26));
       });
-      
+
       // 类似于 fetch，都是返回一个 Promise
-      
+
       fetch("./math").then(math => {
         console.log(math.add(16, 26));
       });
       ```
-
-  - `import('xxx')` 返回的是一个` Promise `
-
+  - `import('xxx')` 返回的是一个 `Promise`
   - `Webpack` 只要遇到了 import('xxx')，就会把括号里引入的内容单独打一个包
-
   - 首先 React lazy 是使用了 dynamic import 的标准，`webpack` 只要遇到了 dynamic import， 就会把里面引入的内容单独打一个包。
 
     由于 dynamic import 返回的是一个 Promise，所以可以使用 Promise 的状态来做**渲染的流程控制**。
 
     如果当前 Promise 是 pending 状态，那么就渲染 Loading 组件，如果 Promise 是 resolve 状态那么就渲染动态导入的组件。
 
-5、CSS 和 JS 可以通过 `Webpack` 来进行[混淆和压缩](https://tool.chinaz.com/tools/jscodeconfusion.aspx) 
+##### 5、CSS 和 JS 可以通过 `Webpack` 来进行[混淆和压缩](https://tool.chinaz.com/tools/jscodeconfusion.aspx)
 
 - 混淆：将 JS 代码进行字符串加密（最大层度减少代码，比如将长变量名变成单个字母等等）
 - 压缩：去除注释空行以及 console.log 等调试代码
 
-6、图片也可以进行压缩
+##### 6、图片也可以进行压缩
 
 - 可以通过自动化工具来压缩图片,	[熊猫站](https://tinypng.com/)：智能压缩 PNG 和 JPG 的一个网站
 - 对图片进行转码 -> [base64 格式](https://c.runoob.com/front-end/59)
+
   - 可以使用 `Webpack `的 [url-loader](https://www.webpackjs.com/loaders/url-loader/) 进行图片策略配置，将**小图**转换成 base64 格式，因为 **base64 格式的图片的作用是减少资源的数量，但是 base64  格式的图片会增大原有图片的体积**
+- 使用 ` WebP` 格式
 
-- 使用` WebP` 格式
-
-7、通过开启 `gzip` 进行**全部资源**压缩
+##### 7、通过开启 `gzip` 进行**全部资源**压缩
 
 - `gzip`: 是一种压缩文件格式，可以对任何文件进行压缩（类比于文件压缩）
 - 可以通过 `nginx` 服务器的配置项进行开启
 
-8、`Webpack`打包优化
+##### 8、`Webpack`打包优化（结合缓存）
 
 - 减**少**包数量-> 使用 `Webpack` 进行物理打包。
 - 减**小**包体积->使用 `Webpack` 进行混淆和压缩，所有与 `Webpack `优化相关的配置都是在 [optimization](https://webpack.docschina.org/configuration/optimization/) 这个配置项里管理。
+- 以及external
 
 ```
 从 webpack 4 开始，会根据你选择的 [mode](https://webpack.docschina.org/concepts/mode/) 来执行不同的优化，不过所有的优化还是可以手动配置和重写。
@@ -132,7 +129,7 @@ production：混淆 + 压缩，自动内置优化
 
 对于需要频繁变动的资源（代码包），可以使用 `Cache-Control: no-cache` 并配合 `ETag` 使用，表示该资源已被缓存，但是每次都会发送请求询问资源是否更新。
 
-9、实现`CDN`加速
+##### 9、实现 `CDN`加速
 
 什么叫做 CDN（内容分发网络），用来放静态资源的服务器，可以用来**加速**静态资源的下载
 
@@ -152,9 +149,14 @@ JS&CSS  Request URL: https://g.alicdn.com/??kg/home-2017/1.4.17/lib/style/lazy.c
 字体     Request URL: https://at.alicdn.com/t/font_403341_n8tj33yn5peng66r.woff
 ```
 
-扩展：[Http2.0](https://http2.akamai.com/demo)： 引入了**多路复用**的机制，可以最大化发送请求数量。
+##### 10、扩展：[Http2.0](https://http2.akamai.com/demo)：
+
+ 引入了**多路复用**的机制，可以最大化发送请求数量。
+
 
 ### 渲染优化：
+
+##### 1.分批渲染
 
 为什么渲染很多条数据会造成浏览器卡顿
 
@@ -211,7 +213,10 @@ loop();
 1. 可以使用 `document.createDocumentFragment `创建虚拟节点，从而避免引起没有必要的渲染
 2. 当所有的 li 都创建完毕后，一次性把虚拟节点里的 li 标签全部渲染出来
 3. 可以采取分段渲染的方式，比如一次只渲染一屏的数据
-4. 最后使用` window.requestAnimationFrame `来逐帧渲染
+4. 最后使用 `window.requestAnimationFrame`来逐帧渲染
 
+##### 2、CSS 放前面 JS 放后面
 
+##### 3、减少DOM 查询，对 DOM 查询做缓存
 
+##### 4、节流和防抖

@@ -1,3 +1,8 @@
+## 题目
+
+请手写 EventBus 自定义事件，实现 `no` `once` `emit` 和 `off`
+
+```js
 class HYEventBus {
   constructor() {
     this.eventBus = {}
@@ -72,3 +77,5 @@ eventBus.emit("abc", 123)
 eventBus.off("abc", handleCallback)
 eventBus.emit("abc", 123)
 
+
+```

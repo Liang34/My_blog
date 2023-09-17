@@ -1,4 +1,4 @@
-要想实现`new`关键字，我们首先应当知道`new`的过程中干了哪些事情，首先看代码：
+要想实现 `new`关键字，我们首先应当知道 `new`的过程中干了哪些事情，首先看代码：
 
 ```js
 function Person (name, age) {
@@ -26,16 +26,18 @@ person.sayName(); // I am Kevin
 
 在函数中，创建了一个对象
 
-`person`不仅可以访问`Person`构造函数的属性，还可以访问到`Person.prototype`中的属性。
+`person`不仅可以访问 `Person`构造函数的属性，还可以访问到 `Person.prototype`中的属性。
 
-并且在调用`sayName`时，`this`是指向`person`的
+并且在调用 `sayName`时，`this`是指向 `person`的
+
+### new时干了什么：
 
 我们可以用以下四点概括：
 
 (1) 创建一个新对象；
 (2) 将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象） ；
 (3) 执行构造函数中的代码（为这个新对象添加属性） ；
-(4) 返回新对象。 
+(4) 返回新对象。
 
 这里我们直接以函数的方式来模拟：
 
@@ -73,7 +75,7 @@ console.log(person.age) // undefined
 
 ```js
 function newFactory() {
-    var obj = new Object(),
+    var obj = Object.create({}),
     Constructor = [].shift.call(arguments);
     obj.__proto__ = Constructor.prototype;
     var ret = Constructor.apply(obj, arguments);
@@ -81,5 +83,7 @@ function newFactory() {
 };
 ```
 
+### Object.create 和 {} 的区别
 
-
+`Object.create` 可以指定原型，创建一个空对象。
+`{}` 就相当于 `Object.create(Object.prototype)` ，即根据 `Object` 原型的空对象
