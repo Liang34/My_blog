@@ -1,0 +1,50 @@
+<div id="app">
+  <div class="content-table">
+
+    <canvas id="canvans" width="600" height="300"></canvas>
+  </div>
+  <div id="slide-wrap">
+    <div class="slide"></div>
+  </div>
+</div>
+<script src="./index.js"></script>
+<script>
+  const slideWrap = document.getElementById("slide-wrap");
+  const slide = slideWrap.querySelector(".slide");
+  const canvansDom = document.getElementById("canvans");
+  const columns = [{ label: "姓名", key: "name", }, { label: "年龄", key: "age", },
+  { label: "学校", key: "school" }, { label: "分数", key: "source" }, { label: "操作", key: "options" }];
+
+  const mockData = [
+    {
+      name: "张三",
+      id: 0,
+      age: 0,
+      school: "公众号：Web技术学苑",
+      source: 800,
+    },
+  ];
+  const tableData = new Array(60).fill(mockData[0]).map((v, index) => {
+    return {
+      ...v,
+      id: index,
+      name: `${v.name}-${index + 1}`,
+      age: v.age + index + 1,
+      source: v.source + index + 1,
+    };
+  });
+
+  const table = {
+    rowHeight: 30,
+    headerHight: 30,
+    columns,
+    tableData,
+  };
+  const canvans = new CanvasTable({
+    el: canvansDom,
+    slideWrap,
+    slide,
+    table,
+    touchCanvans: true // 点击事件默认作用在canvans上
+  });
+</script>
