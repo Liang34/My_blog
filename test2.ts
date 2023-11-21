@@ -99,3 +99,11 @@
 //       }
 //   }
 // }
+
+enum methods {
+    get = 'get',
+    put = 'put',
+    delete = 'delete',
+  }
+  
+  type p1 = Omit<methods, methods.get>
